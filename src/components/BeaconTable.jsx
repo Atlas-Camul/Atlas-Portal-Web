@@ -11,13 +11,13 @@ const TableThree = () => {
                 Name
               </th>
               <th className='min-w-[150px] py-4 px-4 font-medium text-black dark:text-white'>
-                Last Stop
+                Daily Users
               </th>
               <th className='min-w-[120px] py-4 px-4 font-medium text-black dark:text-white'>
-                Total Pop-Ups
+                Status
               </th>
               <th className='py-4 px-4 font-medium text-black dark:text-white'>
-                Logs
+                Actions
               </th>
             </tr>
           </thead>
@@ -25,16 +25,16 @@ const TableThree = () => {
             <tr>
               <td className='border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11'>
                 <h5 className='font-medium text-black dark:text-white'>
-                  Fatima Soares
+                  Beacon 012
                 </h5>
                 {/* <p className='text-sm'>$0.00</p> */}
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
-                <p className='text-black dark:text-white'>Jan 13,2023</p>
+                <p className='text-black dark:text-white'>103</p>
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
                 <p className='inline-flex rounded-full bg-success bg-opacity-10 py-1 px-3 text-sm font-medium text-success'>
-                  Paid
+                  Active
                 </p>
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
@@ -110,16 +110,15 @@ const TableThree = () => {
             <tr>
               <td className='border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11'>
                 <h5 className='font-medium text-black dark:text-white'>
-                  Standard Package
+                  Beacon 013
                 </h5>
-                <p className='text-sm'>$59.00</p>
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
-                <p className='text-black dark:text-white'>Jan 13,2023</p>
+                <p className='text-black dark:text-white'>224</p>
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
                 <p className='inline-flex rounded-full bg-success bg-opacity-10 py-1 px-3 text-sm font-medium text-success'>
-                  Paid
+                  Active
                 </p>
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
@@ -195,16 +194,15 @@ const TableThree = () => {
             <tr>
               <td className='border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11'>
                 <h5 className='font-medium text-black dark:text-white'>
-                  Business Package
+                  Beacon 014
                 </h5>
-                <p className='text-sm'>$99.00</p>
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
-                <p className='text-black dark:text-white'>Jan 13,2023</p>
+                <p className='text-black dark:text-white'>203</p>
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
                 <p className='inline-flex rounded-full bg-danger bg-opacity-10 py-1 px-3 text-sm font-medium text-danger'>
-                  Unpaid
+                  Disabled
                 </p>
               </td>
               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
@@ -280,16 +278,15 @@ const TableThree = () => {
             <tr>
               <td className='py-5 px-4 pl-9 xl:pl-11'>
                 <h5 className='font-medium text-black dark:text-white'>
-                  Standard Package
+                  Beacon 015
                 </h5>
-                <p className='text-sm'>$59.00</p>
               </td>
               <td className='py-5 px-4'>
-                <p className='text-black dark:text-white'>Jan 13,2023</p>
+                <p className='text-black dark:text-white'>198</p>
               </td>
-              <td className='py-5 px-4'>
-                <p className='inline-flex rounded-full bg-warning bg-opacity-10 py-1 px-3 text-sm font-medium text-warning'>
-                  Pending
+              <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
+                <p className='inline-flex rounded-full bg-success bg-opacity-10 py-1 px-3 text-sm font-medium text-success'>
+                  Active
                 </p>
               </td>
               <td className='py-5 px-4'>
