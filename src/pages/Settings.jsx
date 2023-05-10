@@ -1,7 +1,7 @@
 import React from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumb';
-import userThree from '../images/user/user-03.png';
+import UserOne from '../images/user/user-01.png'
 
 const Settings = () => {
   return (
@@ -56,8 +56,8 @@ const Settings = () => {
                         type='text'
                         name='fullName'
                         id='fullName'
-                        placeholder='Devid Jhon'
-                        defaultValue='Devid Jhon'
+                        placeholder='Fernando Santos Silva'
+                        defaultValue='Fernando Santos Silva'
                       />
                     </div>
                   </div>
@@ -74,8 +74,8 @@ const Settings = () => {
                       type='text'
                       name='phoneNumber'
                       id='phoneNumber'
-                      placeholder='+990 3343 7865'
-                      defaultValue='+990 3343 7865'
+                      placeholder='+351 932 654 987'
+                      defaultValue='+351 932 654 987'
                     />
                   </div>
                 </div>
@@ -118,8 +118,8 @@ const Settings = () => {
                       type='email'
                       name='emailAddress'
                       id='emailAddress'
-                      placeholder='devidjond45@gmail.com'
-                      defaultValue='devidjond45@gmail.com'
+                      placeholder='fss@isep.ipp.pt'
+                      defaultValue='fss@isep.ipp.pt'
                     />
                   </div>
                 </div>
@@ -136,8 +136,8 @@ const Settings = () => {
                     type='text'
                     name='Username'
                     id='Username'
-                    placeholder='devidjhon24'
-                    defaultValue='devidjhon24'
+                    placeholder='fernandossantoss1971'
+                    defaultValue='fernandossantoss1971'
                   />
                 </div>
 
@@ -173,7 +173,7 @@ const Settings = () => {
               <form action='#'>
                 <div className='mb-4 flex items-center gap-3'>
                   <div className='h-14 w-14 rounded-full'>
-                    <img src={userThree} alt='User' />
+                    <img src={UserOne} alt='User' />
                   </div>
                   <div>
                     <span className='mb-1.5 text-black dark:text-white'>
