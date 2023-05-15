@@ -5,6 +5,8 @@ import BeaconTable from '../components/BeaconTable';
 
 //const BeaconController = require('./src/controller/BeaconController.js');
 
+
+
 const Tables = () => {
   return (
     <DefaultLayout>
