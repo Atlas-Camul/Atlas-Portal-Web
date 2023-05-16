@@ -3,6 +3,10 @@ import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumb';
 import BeaconTable from '../components/BeaconTable';
 
+//const BeaconController = require('./src/controller/BeaconController.js');
+
+
+
 const Tables = () => {
   return (
     <DefaultLayout>
@@ -45,8 +49,8 @@ const Tables = () => {
                     <input
                       className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
                       type='text'
-                      name='phoneNumber'
-                      id='phoneNumber'
+                      name='localization'
+                      id='localization'
                     />
                   </div>
                 </div>
@@ -54,6 +58,7 @@ const Tables = () => {
                   <button
                     className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
                     type='submit'
+                   // onclick='BeaconController.addBeacon()'
                   >
                     Add Beacon
                   </button>
