@@ -1,5 +1,5 @@
 
-const { createConnection, getConnection, Connection, Entity, PrimaryGeneratedColumn, Column, getRepository } = require('typeorm');
+/*const { createConnection, getConnection, Connection, Entity, PrimaryGeneratedColumn, Column, getRepository } = require('typeorm');
 
 class Database
 {
@@ -132,7 +132,7 @@ class Database
         const message = await messageRepository.findOne(id);
 
         if (!message) {
-            console.log('message não encontrada');
+            console.log('Mensagem não encontrada');
             return;
         }
 
@@ -143,7 +143,7 @@ class Database
 
         await messageRepository.save(message);
 
-        console.log('message atualizada:', message);
+        console.log('Mensagem atualizada:', message);
     }
 
     async deleteMessage(id) {
@@ -346,30 +346,30 @@ class Database
         console.log('Rota removida:', route);
     }
 }
-    //----------
+    //------
 
-    @Entity()
-    class User {
-    @PrimaryGeneratedColumn()
-    id;
+        @entity()
+        class user {
+        @primarygeneratedcolumn()
+        id;
 
-    @Column()
-    name;
+        @column()
+        name;
 
-    @Column()
-    email;
+        @column()
+        email;
 
-    @Column()
-    phone;
+        @column()
+        phone;
 
-    @Column()
-    password;
+        @column()
+        password;
 
 
-}
+        }
 
-@Entity()
-class Beacon {
+        @Entity()
+        class Beacon {
     @PrimaryGeneratedColumn()
     id;
 
@@ -383,8 +383,8 @@ class Beacon {
     longitude;
 }
 
-@Entity()
-class Message {
+        @Entity()
+        class Message {
     @PrimaryGeneratedColumn()
     id;
 
@@ -401,8 +401,8 @@ class Message {
     longitude;
 }
 
-@Entity()
-class Media {
+        @Entity()
+        class Media {
     @PrimaryGeneratedColumn()
     id;
 
@@ -413,8 +413,8 @@ class Media {
     type;
 }
 
-@Entity()
-class Zone {
+        @Entity()
+        class Zone {
     @PrimaryGeneratedColumn()
     id;
 
@@ -434,8 +434,8 @@ class Zone {
     restriction;
 }
 
-@Entity()
-class Restrictions {
+        @Entity()
+        class Restrictions {
     @PrimaryGeneratedColumn()
     id;
 
@@ -452,8 +452,8 @@ class Restrictions {
     longitude;
 }
 
-@Entity()
-class Route {
+        @Entity()
+        class Route {
     @PrimaryGeneratedColumn()
     id;
 
@@ -464,4 +464,4 @@ class Route {
     path;
 }
 
-module.exports = Database;
+        module.exports = Database;

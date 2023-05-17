@@ -11,6 +11,10 @@ import SignUp from './pages/Authentication/SignUp'
 import ResetPassword from './pages/Authentication/ResetPassword'
 import ResetPasswordEmail from './pages/Authentication/ResetPasswordEmail'
 
+import react from 'react';
+import axios from 'axios';
+
+
 const App = () => {
   const [loading, setLoading] = useState(true)
 
