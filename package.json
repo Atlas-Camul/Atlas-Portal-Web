@@ -14,6 +14,18 @@
     "url": "https://tailadmin.com"
   },
   "dependencies": {
+    "@emotion/react": "^11.4.1",
+    "@emotion/styled": "^11.3.0",
+    "@mui/material": "^5.9.2",
+    "@types/jest": "24.0.19",
+    "@types/node": "12.11.7",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-router-dom": "^5.1.3",
+    "react-azure-maps": "^0.4.5",
+    "react-scripts": "5.0.1",
+    "sanitize.css": "^12.0.1",
+    "typescript": "3.6.4",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.18",
     "apexcharts": "^3.37.0",
@@ -21,12 +33,12 @@
     "jsvectormap": "^1.5.1",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
+    "sort-by": "^1.2.0",
     "mysql": "^2.18.1",
     "react": "^18.2.0",
     "react-apexcharts": "^1.4.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.8.1",
-    "sort-by": "^0.0.2",
     "typeorm": "^0.3.16"
   },
   "devDependencies": {

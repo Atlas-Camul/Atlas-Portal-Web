@@ -1,17 +1,17 @@
 import React from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumb';
+import { AzureMapsProvider } from 'react-azure-maps';
+import MapController from './MapController';
 
 const Calendar = () => {
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName='Map Overview' />
-
-      {/* <!-- ====== Calendar Section Start ====== --> */}
-      <div className='w-full h-[700px] bg-cover bg-center bg-map-mockup rounded-2xl border border-stroke shadow-default dark:border-strokedark'
-      >
-      </div>
-      {/* <!-- ====== Calendar Section End ====== --> */}
+      <AzureMapsProvider>
+        <MapController />
+      </AzureMapsProvider>
     </DefaultLayout>
   )
 }
