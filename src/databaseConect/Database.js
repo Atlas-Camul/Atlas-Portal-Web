@@ -1,5 +1,5 @@
 
-/*const { createConnection, getConnection, Connection, Entity, PrimaryGeneratedColumn, Column, getRepository } = require('typeorm');
+const { createConnection, getConnection, Connection, Entity, PrimaryGeneratedColumn, Column, getRepository } = require('typeorm');
 
 class Database
 {
