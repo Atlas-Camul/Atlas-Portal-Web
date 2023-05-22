@@ -1,30 +1,18 @@
 
+import { createConnection } from 'typeorm';
 
-
-const { createConnection, getConnection, Connection, Entity, PrimaryGeneratedColumn, Column, getRepository } = require('typeorm');
-
-class Database {
-    constructor() {
-        this.connection = null;
-    }
-
-    async createConnection() {
-        this.connection = await createConnection({
-            type: 'mysql',
-            host: 'atlas-isep.mysql.database.azure.com',
-            username: 'AtlasAdmin',
-            password: 'C9wFvW19$GSH92i#',
-            database: 'atlasdb',
-            port: 3306,
-            entities: [User, Beacon, Message, Media, Zone, Restrictions, Route],
-            synchronize: true,
-        });
-
-        console.log('Conexão com o banco de dados estabelecida');
-    }
+export async function startConnection() {
+    return await createConnection({
+        type: 'mysql',
+        host: 'atlas-isep.mysql.database.azure.com',
+        username: 'AtlasAdmin',
+        password: 'C9wFvW19$GSH92i#',
+        database: 'atlasdb',
+        port: 3306,
+        entities: [User, Beacon, Message, Media, Zone, Restrictions, Route],
+        synchronize: true,
+    });
 }
-
-module.exports = Database;
 
 //------------------------------------------------------------------------------
 

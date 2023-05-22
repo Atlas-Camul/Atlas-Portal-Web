@@ -1,5 +1,5 @@
 @Entity()
-        class Beacon {
+    class Beacon {
     @PrimaryGeneratedColumn()
     id;
 

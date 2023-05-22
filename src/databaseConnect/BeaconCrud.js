@@ -1,10 +1,13 @@
+import { getRepository } from 'typeorm';
+import { startConnection } from './Connection';
+import * as Beacon from './Beacon';
 
+//const { getRepository } = require('typeorm');
+//const { Beacon } = require('./Connection');
 
-const { getRepository } = require('typeorm');
-const { Beacon } = require('./Connection');
-
-async function insertBeacon(name, latitude, longitude) {
-        const beacon = new Beacon();
+export async function insertBeacon(name, latitude, longitude) {
+    startConnection();
+    const beacon = new Beacon();
         beacon.name = name;
         beacon.latitude = latitude;
         beacon.longitude = longitude;
@@ -15,7 +18,7 @@ async function insertBeacon(name, latitude, longitude) {
         console.log('Novo beacon inserido:', beacon);
     }
 
-    async function updateBeacon(id, name, latitude, longitude) {
+    export async function updateBeacon(id, name, latitude, longitude) {
         const beaconRepository = getRepository(Beacon);
         const beacon = await beaconRepository.findOne(id);
 
@@ -33,7 +36,7 @@ async function insertBeacon(name, latitude, longitude) {
         console.log('Beacon atualizado:', beacon);
     }
 
-    async function deleteBeacon(id) {
+    export async function deleteBeacon(id) {
         const beaconRepository = getRepository(Beacon);
         const beacon = await beaconRepository.findOne(id);
 
@@ -46,5 +49,3 @@ async function insertBeacon(name, latitude, longitude) {
 
         console.log('Beacon removido:', beacon);
     }
-
-        module.exports = { insertBeacon, updateBeacon, deleteBeacon };
