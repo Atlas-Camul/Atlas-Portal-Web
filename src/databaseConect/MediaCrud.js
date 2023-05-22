@@ -3,7 +3,7 @@ const { getRepository } = require('typeorm');
 const { Media } = require('./Connection');
 
 
-async insertMedia(url, type) {
+async function insertMedia(url, type) {
         const media = new Media();
         media.url = url;
         media.type = type;
@@ -15,7 +15,8 @@ async insertMedia(url, type) {
         console.log('Nova mídia inserida:', media);
     }
 
-    async updateMedia(id, url, type) {
+
+async function updateMedia(id, url, type) {
         const mediaRepository = getRepository(Media);
         const media = await mediaRepository.findOne(id);
 
@@ -33,7 +34,7 @@ async insertMedia(url, type) {
         console.log('Mídia atualizada:', media);
     }
 
-    async deletemedia(id) {
+    async function deleteMedia(id) {
         const mediaRepository = getRepository(Media);
         const media = await mediaRepository.findOne(id);
 

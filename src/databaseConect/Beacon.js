@@ -12,3 +12,4 @@
     @Column()
     longitude;
 }
+module.exports = Beacon;

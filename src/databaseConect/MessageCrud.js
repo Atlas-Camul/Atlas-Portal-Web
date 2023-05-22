@@ -4,7 +4,7 @@ const { getRepository } = require('typeorm');
 const { Message } = require('./Connection');
 
 
-async insertMessage(title, description, latitude, longitude) {
+async function insertMessage(title, description, latitude, longitude) {
         const message = new Message();
         message.title = title;
         message.description = description;
@@ -14,10 +14,10 @@ async insertMessage(title, description, latitude, longitude) {
         const messageRepository = getRepository(Message);
         await messageRepository.save(message);
 
-        console.log('Nova message inserida:', message);
+        console.log('Nova mensagem inserida:', message);
     }
 
-    async updatemessage(id, title, description, latitude, longitude) {
+async function updateMessage(id, title, description, latitude, longitude) {
         const messageRepository = getRepository(Message);
         const message = await messageRepository.findOne(id);
 
@@ -36,7 +36,7 @@ async insertMessage(title, description, latitude, longitude) {
         console.log('Mensagem atualizada:', message);
     }
 
-    async deleteMessage(id) {
+async function deleteMessage(id) {
         const messageRepository = getRepository(Message);
         const message = await messageRepository.findOne(id);
 

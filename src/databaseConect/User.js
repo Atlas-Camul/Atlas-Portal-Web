@@ -15,4 +15,7 @@
         @column()
         password;
 
-        }
+}
+
+module.exports = User;
+

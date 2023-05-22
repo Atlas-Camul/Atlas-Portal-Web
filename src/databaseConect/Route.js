@@ -9,3 +9,5 @@
     @Column()
     path;
 }
+
+module.exports = Route;

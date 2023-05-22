@@ -3,7 +3,7 @@ const { getRepository } = require('typeorm');
 const { Route } = require('./Connection');
 
 
-async insertRoute(name, path) {
+async function insertRoute(name, path) {
         const route = new Route();
         route.name = name;
         route.path = path;
@@ -15,7 +15,7 @@ async insertRoute(name, path) {
         console.log('Nova rota inserida:', route);
     }
 
-    async updateRoute(id, name, path) {
+async function updateRoute(id, name, path) {
         const routeRepository = getRepository(Route);
         const route = await routeRepository.findOne(id);
 
@@ -32,7 +32,7 @@ async insertRoute(name, path) {
         console.log('Rota atualizada:', route);
     }
 
-    async deleteRoute(id) {
+async function deleteRoute(id) {
         const routeRepository = getRepository(Route);
         const route = await routeRepository.findOne(id);
 

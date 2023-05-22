@@ -9,3 +9,5 @@
     @Column()
     type;
 }
+
+module.exports = Media;

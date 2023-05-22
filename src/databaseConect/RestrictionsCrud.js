@@ -3,7 +3,7 @@ const { getRepository } = require('typeorm');
 const { Restrictions } = require('./Connection');
 
 
-async insertRestrictions(nameRestrictions, type, latitude, longitude) {
+async function insertRestrictions(nameRestrictions, type, latitude, longitude) {
         const restrictions = new Restrictions();
         restrictions.nameRestrictions = nameRestrictions;
         restrictions.type = type;
@@ -16,7 +16,7 @@ async insertRestrictions(nameRestrictions, type, latitude, longitude) {
         console.log('Nova restrição inserida:', restrictions);
     }
 
-    async updateRestrictions(id, nameRestrictions, type, latitude, longitude) {
+async function updateRestrictions(id, nameRestrictions, type, latitude, longitude) {
         const restrictionsRepository = getRepository(Restrictions);
         const restrictions = await restrictionsRepository.findOne(id);
 
@@ -35,7 +35,7 @@ async insertRestrictions(nameRestrictions, type, latitude, longitude) {
         console.log('Restrição atualizada:', restrictions);
     }
 
-    async deleteRestrictions(id) {
+async function deleteRestrictions(id) {
         const restrictionsRepository = getRepository(Restrictions);
         const restrictions = await restrictionsRepository.findOne(id);
 

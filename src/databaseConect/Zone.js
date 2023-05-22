@@ -18,3 +18,5 @@
     @Column()
     restriction;
 }
+
+module.exports = Zone;

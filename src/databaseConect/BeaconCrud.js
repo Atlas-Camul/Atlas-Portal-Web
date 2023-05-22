@@ -3,7 +3,7 @@
 const { getRepository } = require('typeorm');
 const { Beacon } = require('./Connection');
 
-async insertBeacon(name, latitude, longitude) {
+async function insertBeacon(name, latitude, longitude) {
         const beacon = new Beacon();
         beacon.name = name;
         beacon.latitude = latitude;
@@ -15,7 +15,7 @@ async insertBeacon(name, latitude, longitude) {
         console.log('Novo beacon inserido:', beacon);
     }
 
-    async updateBeacon(id, name, latitude, longitude) {
+    async function updateBeacon(id, name, latitude, longitude) {
         const beaconRepository = getRepository(Beacon);
         const beacon = await beaconRepository.findOne(id);
 
@@ -33,7 +33,7 @@ async insertBeacon(name, latitude, longitude) {
         console.log('Beacon atualizado:', beacon);
     }
 
-    async deleteBeacon(id) {
+    async function deleteBeacon(id) {
         const beaconRepository = getRepository(Beacon);
         const beacon = await beaconRepository.findOne(id);
 

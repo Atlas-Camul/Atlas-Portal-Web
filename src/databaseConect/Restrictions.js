@@ -15,3 +15,5 @@
     @Column()
     longitude;
 }
+
+module.exports = Restrictions;

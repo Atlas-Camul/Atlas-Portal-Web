@@ -2,7 +2,7 @@
 const { getRepository } = require('typeorm');
 const { Zone } = require('./Connection');
 
-async insertZone(name, type, latitude, longitude, restriction) {
+async function insertZone(name, type, latitude, longitude, restriction) {
         const zone = new Zone();
         zone.name = name;
         zone.type = type;
@@ -17,13 +17,14 @@ async insertZone(name, type, latitude, longitude, restriction) {
         console.log('Nova zona inserida:', zone);
     }
 
-    async updateZone(id, name, type, latitude, longitude, restriction) {
+async function updateZone(id, name, type, latitude, longitude, restriction) {
         const zoneRepository = getRepository(Zone);
         const zone = await zoneRepository.findOne(id);
 
         if (!zone) {
             console.log('Zona não encontrada');
-            return;
+            return; 
+
         }
 
         zone.name = name;
@@ -37,7 +38,7 @@ async insertZone(name, type, latitude, longitude, restriction) {
         console.log('Zona atualizada:', zone);
     }
 
-    async deleteZone(id) {
+async function deleteZone(id) {
         const zoneRepository = getRepository(Zone);
         const zone = await zoneRepository.findOne(id);
 

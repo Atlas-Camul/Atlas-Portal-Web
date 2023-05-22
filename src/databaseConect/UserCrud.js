@@ -2,7 +2,7 @@
 const { getRepository } = require('typeorm');
 const { User } = require('./Connection');
 
-async insertUser(name, email, phone, password) {
+async function insertUser(name, email, phone, password) {
         const user = new User();
         user.name = name;
         user.email = email;
@@ -15,7 +15,7 @@ async insertUser(name, email, phone, password) {
         console.log('Novo usuário inserido:', user);
     }
 
-    async updateUser(id, name, email, phone, password) {
+    async  function updateUser(id, name, email, phone, password) {
         const userRepository = getRepository(User);
         const user = await userRepository.findOne(id);
 
@@ -34,7 +34,7 @@ async insertUser(name, email, phone, password) {
         console.log('Usuário atualizado:', user);
     }
 
-    async deleteUser(id) {
+async function deleteUser(id) {
         const userRepository = getRepository(User);
         const user = await userRepository.findOne(id);
 
