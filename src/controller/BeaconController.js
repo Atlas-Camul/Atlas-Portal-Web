@@ -1,11 +1,5 @@
-const BeaconManagement = require('./src/pages/BeaconManagement.jsx');
-function addBeacon()
+//import {} from '../databaseConnect/BeaconCrud';
+export async function AddBeacon(beaconName, beaconLocalization)
 {
-    const beaconName = BeaconManagement.getElementById("fullName");
-    console.log(beaconName.text);
-
-
-
+    //insertBeacon(beaconName, beaconLocalization, beaconLocalization);
 }
-
-exports.addBeacon = addBeacon;
