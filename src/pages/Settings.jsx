@@ -273,7 +273,7 @@ const Settings = () => {
                     className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
                     type='submit'
                   >
-                    Sen Link
+                    Send Link
                   </button>
                 </div>
               </form>

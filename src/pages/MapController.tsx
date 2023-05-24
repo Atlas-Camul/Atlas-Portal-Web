@@ -18,7 +18,6 @@ import {
   HtmlMarkerOptions,
   SymbolLayerOptions,
 } from "azure-maps-control";
-import { Button, Chip } from "@mui/material";
 
 const controls: IAzureMapControls[] = [
   {
@@ -109,7 +108,7 @@ const memoizedOptions: SymbolLayerOptions = {
     textField: ["get", "title"], //Specify the property name that contains the text you want to appear with the symbol.
     offset: [0, 1.2],
   },
-  iconOptions: { image: `pin-green` },
+  iconOptions: { image: `pin-round-red` },
 };
 
 const memoizedOptionsD: SymbolLayerOptions = {
@@ -117,7 +116,7 @@ const memoizedOptionsD: SymbolLayerOptions = {
     textField: ["get", "title"], //Specify the property name that contains the text you want to appear with the symbol.
     offset: [0, 1.2],
   },
-  iconOptions: { image: `pin-round-red` },
+  iconOptions: { image: `pin-round-darkblue` },
 };
 
 const eventToMarker: Array<IAzureMapHtmlMarkerEvent> = [
@@ -138,9 +137,9 @@ const renderPoint = (
       coordinate={coordinates.coordinates}
       properties={{
         title: title,
-        icon: markersStandardImages[
-          Math.floor(Math.random() * markersStandardImages.length)
-        ],
+        // icon: markersStandardImages[
+        //   Math.floor(Math.random() * markersStandardImages.length)
+        // ],
       }}
     />
   );
@@ -235,7 +234,7 @@ const MarkersExample: React.FC = () => {
       dmarkers.map((marker) =>
         renderPoint(marker.geometry, marker.properties?.name)
       ),
-    [markers]
+    [dmarkers]
   );
 
   // const memoizedHtmlMarkerRender: IAzureDataSourceChildren = useMemo(
@@ -304,10 +303,10 @@ const MarkersExample: React.FC = () => {
           {" "}
           REMOVE ALL
         </Button> */}
-        <div className="inline-flex rounded-full bg-success bg-opacity-10 px-3 py-1 text-sm font-medium text-success">
+        <div className="inline-flex rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger">
           Active beacons on ISEP: {markers.length}
         </div>
-        <div className="inline-flex rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger">
+        <div className="inline-flex rounded-full bg-[#0065af] bg-opacity-10 px-3 py-1 text-sm font-medium text-[#003963] dark:text-[#007bd5]">
           Deactivated beacons on ISEP: {dmarkers.length}
         </div>
         {/* <Chip label={`Markers HTML on map: ${htmlMarkers.length}`} /> */}
@@ -322,7 +321,6 @@ const MarkersExample: React.FC = () => {
                 },
               }}
               id={"markersExample AzureMapDataSourceProvider"}
-              options={{ cluster: true, clusterRadius: 2 }}
             >
               <AzureMapLayerProvider
                 id={"markersExample AzureMapLayerProvider"}
@@ -338,11 +336,19 @@ const MarkersExample: React.FC = () => {
                 }}
                 type={markersLayer}
               />
-
               {memoizedMarkerRender}
+            </AzureMapDataSourceProvider>
 
+            <AzureMapDataSourceProvider
+              events={{
+                dataadded: (e: any) => {
+                  console.log("Data on source added", e);
+                },
+              }}
+              id={"markersExample AzureMapDataSourceProvider2"}
+            >
               <AzureMapLayerProvider
-                id={"markersExample AzureMapLayerProvider"}
+                id={"markersExample AzureMapLayerProvider2"}
                 options={layerOptionsD}
                 events={{
                   click: clusterClicked,
