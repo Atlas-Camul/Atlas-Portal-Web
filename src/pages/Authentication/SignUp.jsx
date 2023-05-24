@@ -1,6 +1,17 @@
 import React from 'react';
 import LogoExtended from '../../images/logo/logo-extended.png';
 import { Link } from 'react-router-dom';
+import { AddClient } from '../controller/ClientController'
+
+const submitClient = () => {
+    const clientName = document.getElementsByName("name")[0].value;
+    const clientEmail = document.getElementsByName("email")[0].value;
+    const clientPhone = document.getElementsByName("phone")[0].value;
+    const clientPhone = document.getElementsByName("password")[0].value;
+
+    AddClient(clientName, clientEmail, clientPhone, clientPassword);
+}
+
 
 const SignUp = () => {
   return (
@@ -30,6 +41,7 @@ const SignUp = () => {
                     <div className='relative'>
                       <input
                         type='text'
+                        name = "name"
                         placeholder='Enter your full name'
                         className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                       />
@@ -65,6 +77,7 @@ const SignUp = () => {
                     <div className='relative'>
                       <input
                         type='email'
+                        name = "email"
                         placeholder='Enter your email'
                         className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                       />
@@ -96,6 +109,7 @@ const SignUp = () => {
                     <div className='relative'>
                       <input
                         type='password'
+                        name = "password"
                         placeholder='Enter your password'
                         className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                       />
@@ -131,6 +145,7 @@ const SignUp = () => {
                     <div className='relative'>
                       <input
                         type='password'
+                        name = "repassword"
                         placeholder='Re-enter your password'
                         className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                       />
