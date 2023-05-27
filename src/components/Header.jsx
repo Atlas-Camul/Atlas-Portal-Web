@@ -64,7 +64,7 @@ const Header = (
           </Link>
         </div>
 
-        <div className='hidden sm:block font-bold text-blackest dark:text-white'>
+        <div className='sm:block  font-bold text-blackest dark:text-white'>
           ISEP Indoor Mapping
         </div>
 

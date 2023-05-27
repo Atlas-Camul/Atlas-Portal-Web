@@ -43,11 +43,11 @@ const DropdownUser = () => {
         className='flex items-center gap-4'
         to='#'
       >
-        <span className='hidden text-right lg:block'>
+        <span className='sm:hidden xl:block text-black text-right'>
           <span className='block text-sm font-medium text-black dark:text-white'>
             Fernando Silva
           </span>
-          <span className='block text-xs'>Admin</span>
+          <span className='block text-xs dark:text-white'>Admin</span>
         </span>
 
         <span className='h-12 w-12 rounded-full'>

@@ -1,6 +1,11 @@
+import { getRepository } from 'typeorm';
+import { startConnection } from './Connection';
+import * as User from './User';
 
-const { getRepository } = require('typeorm');
-const { User } = require('./Connection');
+
+
+//const { getRepository } = require('typeorm');
+//const { User } = require('./Connection');
 
 async function insertUser(name, email, phone, password) {
         const user = new User();
