@@ -1,15 +1,15 @@
 import React from 'react';
 import LogoExtended from '../../images/logo/logo-extended.png';
 import { Link } from 'react-router-dom';
-import { AddClient } from '../controller/ClientController'
+//import { AddClient } from '../controller/ClientController'
 
 const submitClient = () => {
-    const clientName = document.getElementsByName("name")[0].value;
-    const clientEmail = document.getElementsByName("email")[0].value;
-    const clientPhone = document.getElementsByName("phone")[0].value;
-    const clientPhone = document.getElementsByName("password")[0].value;
+    //const clientName = document.getElementsByName("name")[0].value;
+    //const clientEmail = document.getElementsByName("email")[0].value;
+    //const clientPhone = document.getElementsByName("phone")[0].value;
+    //const clientPhone = document.getElementsByName("password")[0].value;
 
-    AddClient(clientName, clientEmail, clientPhone, clientPassword);
+    //AddClient(clientName, clientEmail, clientPhone, clientPassword);
 }
 
 
