@@ -1,4 +1,4 @@
-export class Zone {
+class Zone {
     id: number;
     name: string;
     type: string;
@@ -6,7 +6,7 @@ export class Zone {
     longitude: string;
     restriction: number;
 
-    constructor(id: number, name: string, type: string, latitude: string, longitude: string, restriction: string){
+    constructor(id: number, name: string, type: string, latitude: string, longitude: string, restriction: number){
         this.id = id;
         this.name = name;
         this.type = type;
@@ -15,3 +15,5 @@ export class Zone {
         this.restriction = restriction;
     }
 }
+
+export { Zone };

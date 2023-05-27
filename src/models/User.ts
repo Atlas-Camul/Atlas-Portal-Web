@@ -1,4 +1,4 @@
-export class User {
+class User {
     id: number;
     name: string;
     email: string;
@@ -13,4 +13,6 @@ export class User {
         this.password = password;
     }
 }
+
+export { User };
 

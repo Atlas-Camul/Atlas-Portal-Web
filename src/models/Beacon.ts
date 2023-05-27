@@ -1,4 +1,4 @@
-export class Beacon {
+class Beacon {
     id: number;
     name: string;
     latitude: string;
@@ -11,3 +11,5 @@ export class Beacon {
         this.longitude = longitude;
     }
 }
+
+export { Beacon };

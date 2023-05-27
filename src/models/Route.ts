@@ -1,4 +1,4 @@
-export class Route {
+class Route {
     id: number;
     name: string;
     path: string;
@@ -9,3 +9,5 @@ export class Route {
         this.path = path;
     }
 }
+
+export { Route };

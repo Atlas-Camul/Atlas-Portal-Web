@@ -1,4 +1,4 @@
-export class Message {
+class Message {
     id: number;
     title: string;
     description: string;
@@ -13,3 +13,5 @@ export class Message {
         this.longitude = longitude;
     }
 }
+
+export { Message };

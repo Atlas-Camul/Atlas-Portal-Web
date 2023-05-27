@@ -1,4 +1,4 @@
-export class Media {
+class Media {
     id: number;
     url: string;
     type: string;
@@ -9,3 +9,5 @@ export class Media {
         this.type = type;
     }
 }
+
+export { Media };

@@ -1,4 +1,4 @@
-export class Restriction {
+class Restriction {
     id: number;
     name: string;
     type: string;
@@ -13,3 +13,5 @@ export class Restriction {
         this.longitude = longitude;
     }
 }
+
+export { Restriction };
