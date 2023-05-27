@@ -1,6 +1,7 @@
 //e.g server.js
 import express from "express";
 import ViteExpress from "vite-express";
+import './src/database/index.js';
 
 const app = express();
 
