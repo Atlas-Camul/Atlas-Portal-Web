@@ -6,11 +6,13 @@ import { AddClient } from '../controller/ClientController'
 const submitClient = () => {
     const clientName = document.getElementsByName("name")[0].value;
     const clientEmail = document.getElementsByName("email")[0].value;
-    const clientPhone = document.getElementsByName("phone")[0].value;
-    const clientPhone = document.getElementsByName("password")[0].value;
+    //const clientPhone = document.getElementsByName("phone")[0].value;
+    const clientPassword = document.getElementsByName("password")[0].value;
 
-    AddClient(clientName, clientEmail, clientPhone, clientPassword);
+    AddClient(clientName, clientEmail, /*clientPhone*/ clientPassword);
 }
+
+
 
 
 const SignUp = () => {
@@ -109,7 +111,7 @@ const SignUp = () => {
                     <div className='relative'>
                       <input
                         type='password'
-                        name = "password"
+                        name = 'password'
                         placeholder='Enter your password'
                         className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                       />

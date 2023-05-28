@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src\\database",
+    "\\src\\database\\entities"
   ],
-  "SelectedNode": "\\C:\\Users\\wrbas\\Source\\Repos\\Atlas-Portal-Web",
+  "SelectedNode": "\\auth.js",
   "PreviewInSolutionExplorer": false
 }
