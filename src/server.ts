@@ -7,6 +7,7 @@ import {routes} from './routes';
 const app = express();
 
 //app.get("/message", (_, res) => res.send("Hello from express!"));
+app.use(express.json());
 app.use(routes);
 
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));

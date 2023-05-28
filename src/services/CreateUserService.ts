@@ -1,3 +1,6 @@
+import {User} from '../models/User';
+import {UserRepository} from '../repositories/UserRepository';
+
 interface IRequest {
     name: string,
     email: string,
@@ -5,7 +8,13 @@ interface IRequest {
 }
 
 class CreateUserService {
-    execute({ name, email, password }: IRequest):void {}
+    constructor(private userRepository: UserRepository){}
+
+    execute({ name, email, password }: IRequest):User {
+        const user = this.userRepository.create({name, email, password});
+
+        return user;
+    }
 }
 
 export { CreateUserService };
