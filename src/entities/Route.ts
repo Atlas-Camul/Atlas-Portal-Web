@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";  
 
-@Entity()
-export class Route {
+@Entity('Route')
+class Route {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -11,3 +11,5 @@ export class Route {
     @Column()
     path: string;
 }
+
+export { Route };

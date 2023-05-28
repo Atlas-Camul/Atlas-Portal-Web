@@ -4,6 +4,10 @@
     "\\src\\database",
     "\\src\\database\\entities"
   ],
+<<<<<<< HEAD
   "SelectedNode": "\\auth.js",
+=======
+  "SelectedNode": "\\C:\\Users\\Mayro\\Source\\Repos\\Atlas-Portal-Web",
+>>>>>>> 92d83a0a10f8a5bc21165d4747322dfc2c3cb42a
   "PreviewInSolutionExplorer": false
 }
