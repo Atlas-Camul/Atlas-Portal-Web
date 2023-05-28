@@ -1,5 +1,6 @@
-import {User} from '../models/User';
+import {User} from '../entities/User';
 import {UserRepository} from '../repositories/UserRepository';
+import {AppError} from '../errors/AppError';
 
 interface IRequest {
     name: string,
@@ -8,10 +9,16 @@ interface IRequest {
 }
 
 class CreateUserService {
-    constructor(private userRepository: UserRepository){}
+    async execute({ name, email, password }: IRequest): Promise<User> {
+        const userRepository = new UserRepository();
 
-    execute({ name, email, password }: IRequest):User {
-        const user = this.userRepository.create({name, email, password});
+        const userExist = await userRepository.findByEmail(email);
+
+        if(userExist){
+            throw new AppError('User already create');
+        }
+
+        const user = await userRepository.create({name, email, password});
 
         return user;
     }

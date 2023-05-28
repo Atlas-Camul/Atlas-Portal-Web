@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";   
+import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
 
-@Entity()
-export class Restriction {
+@Entity('Beacon')
+class Beacon {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -9,11 +9,10 @@ export class Restriction {
     name: string;
 
     @Column()
-    type: string;
-
-    @Column()
     latitude: string;
 
     @Column()
     longitude: string;
 }
+
+export { Beacon };

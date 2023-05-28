@@ -1,12 +1,15 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity()
-    export class Beacon {
+@Entity('Message')
+class Message {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    name: string;
+    title: string;
+
+    @Column()
+    description: string;
 
     @Column()
     latitude: string;
@@ -14,3 +17,5 @@ import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
     @Column()
     longitude: string;
 }
+
+export { Message };

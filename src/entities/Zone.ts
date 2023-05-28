@@ -1,19 +1,24 @@
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
-@Entity()
-export class Message {
+@Entity('Zone')
+class Zone {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    title: string;
+    name: string;
 
     @Column()
-    description: string;
+    type: string;
 
     @Column()
     latitude: string;
 
     @Column()
     longitude: string;
+
+    @Column()
+    restriction: number;
 }
+
+export { Zone };
