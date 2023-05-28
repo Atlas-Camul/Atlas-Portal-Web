@@ -4,21 +4,18 @@ import { Link } from 'react-router-dom';
 //import { AddClient } from '../controller/ClientController'
 
 const submitClient = () => {
-<<<<<<< HEAD
     const clientName = document.getElementsByName("name")[0].value;
     const clientEmail = document.getElementsByName("email")[0].value;
     //const clientPhone = document.getElementsByName("phone")[0].value;
     const clientPassword = document.getElementsByName("password")[0].value;
 
     AddClient(clientName, clientEmail, /*clientPhone*/ clientPassword);
-=======
     //const clientName = document.getElementsByName("name")[0].value;
     //const clientEmail = document.getElementsByName("email")[0].value;
     //const clientPhone = document.getElementsByName("phone")[0].value;
     //const clientPhone = document.getElementsByName("password")[0].value;
 
     //AddClient(clientName, clientEmail, clientPhone, clientPassword);
->>>>>>> 92d83a0a10f8a5bc21165d4747322dfc2c3cb42a
 }
 
 

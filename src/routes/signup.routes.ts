@@ -3,6 +3,7 @@ import { CreateUserService } from '../services/CreateUserService';
 
 const signupRoutes = Router();
 
+
 signupRoutes.post('/', async (req, res) => {
     const { name, email, password} = req.body;
     
