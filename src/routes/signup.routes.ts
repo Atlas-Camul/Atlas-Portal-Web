@@ -1,14 +1,15 @@
 import { Router } from 'express';
 import { CreateUserService } from '../services/CreateUserService';
+import {ListUsersService} from '../services/ListUsersService';
 import {UserRepository} from '../repositories/UserRepository';
 
 const signupRoutes = Router();
 const userRepository = new UserRepository();
 
 signupRoutes.get('/', (req, res) => {
-    const users =  userRepository.all();
+   const listUser = new ListUsersService(userRepository);
 
-    return res.json(users);
+    return res.json(listUser);
 });
 
 signupRoutes.post('/', (req, res) => {
