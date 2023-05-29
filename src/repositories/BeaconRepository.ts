@@ -25,6 +25,12 @@ class BeaconRepository {
 
     }
 
+    async delete(beacon: Beacon): Promise<Beacon> {
+        const beaconExist = await this.repository.remove(beacon);
+
+        return beaconExist;
+    }
+
     async findById(id: number): Promise<Beacon | null> {
         const beacon = await this.repository.findOne({
             where: { id }
