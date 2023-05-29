@@ -22,11 +22,10 @@ class UserRepository {
         return user;
     }
 
-<<<<<<< HEAD
-    async findByEmail({ email }: IUser): Promise<User | undefined>{
-=======
+
+
     async findByEmail(email: string): Promise<User | null>{
->>>>>>> 488d589ee937226770038a0c639814dfec368bf6
+
         const user = await this.repository.findOne({
             where: [{ email }]
             });
@@ -34,9 +33,9 @@ class UserRepository {
         return user;
     }
 
-<<<<<<< HEAD
+
    
-=======
+
     async listAll(): Promise<User[]>{
         const user = await this.repository.find();
 
@@ -48,7 +47,7 @@ class UserRepository {
 
         return userExit;
     }
->>>>>>> 488d589ee937226770038a0c639814dfec368bf6
+
 }
 
 export {UserRepository};

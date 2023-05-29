@@ -1,20 +1,16 @@
+import { UserRepository } from '../repositories/UserRepository';
 
-import { UserRepository} from '../repositories/UserRepository';
-
-interface IRequest
-{
+interface IRequest {
     email: string;
     password: string;
 }
 
 
-class AuthenticateUserService
-{
-    async execute({ email, password }: IRequest)
-    {
+class AuthenticateUserService {
+    async execute({ email, password }: IRequest) {
         const userRepository = new UserRepository();
 
-        const user = await userRepository.findByEmail({ email });
+        const user = await userRepository.findByEmail(email);
     }
 }
 
