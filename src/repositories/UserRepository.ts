@@ -22,13 +22,19 @@ class UserRepository {
         return user;
     }
 
+
+
     async findByEmail(email: string): Promise<User | null>{
+
         const user = await this.repository.findOne({
-            where: {email}
+            where: [{ email }]
             });
 
         return user;
     }
+
+
+   
 
     async listAll(): Promise<User[]>{
         const user = await this.repository.find();
@@ -41,6 +47,7 @@ class UserRepository {
 
         return userExit;
     }
+
 }
 
 export {UserRepository};
