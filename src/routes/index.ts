@@ -8,8 +8,12 @@ import { passwordResetRoutes } from './passwordReset.route';
 import { passwordResetEmailRoutes } from './passwordResedEmail.routes';
 import { signinRoutes } from './signin.routes';
 import { signupRoutes } from './signup.routes';
+import ensureAuthenticated from '../middlewares/ensureAuthenticed';
 
 const routes = Router();
+
+routes.use(ensureAuthenticated);
+
 routes.use('/', homeRoutes);
 routes.use('/user-management', userManagementRoutes);
 routes.use('/beacon-management', beaconManagementRoutes);

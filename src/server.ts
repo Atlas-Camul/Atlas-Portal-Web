@@ -5,6 +5,7 @@ import ViteExpress from "vite-express";
 import {routes} from './routes';
 import {AppError} from './errors/AppError';
 import './database/index';
+import 'express-async-errors';
 
 const app = express();
 

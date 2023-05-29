@@ -8,7 +8,7 @@ signinRoutes.post('/', async (req, res) => {
 
     const authenticateUserService = new AuthenticateUserService();
 
-    const session = authenticateUserService.execute({ email, password });
+    const session = await  authenticateUserService.execute({ email, password });
 
     return res.json(session);
 });
