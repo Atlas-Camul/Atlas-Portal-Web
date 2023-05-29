@@ -1,13 +1,15 @@
-import {User} from '../models/User';
+import {User} from '../entities/User';
 import {UserRepository} from '../repositories/UserRepository';
 
 
 class ListUsersService {
-    /*execute():User {
-        const user = this.userRepository.all();
+    async execute(): Promise<User[]> {
+        const userRepository = new UserRepository();
 
-        return user;
-    }*/
+        const users = await userRepository.listAll();
+
+        return users;
+    }
 }
 
 export { ListUsersService };
