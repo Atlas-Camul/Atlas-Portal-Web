@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
 
 @Entity('Beacon')
 class Beacon {
@@ -13,6 +13,9 @@ class Beacon {
 
     @Column()
     longitude: string;
+
+    @Column()
+    zoneID: number;
 }
 
 export { Beacon };
