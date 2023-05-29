@@ -23,12 +23,24 @@ class UserRepository {
         return user;
     }
 
-    async findByEmail(email: string): Promise<User | undefined>{
+    async findByEmail(email: string): Promise<User | null>{
         const user = await this.repository.findOne({
             where: {email}
             });
 
         return user;
+    }
+
+    async listAll(): Promise<User[]>{
+        const user = await this.repository.find();
+
+        return user;
+    }
+
+    async update(user: User): Promise<User>{
+        const userExit = await this.repository.save(user);
+
+        return userExit;
     }
 }
 
