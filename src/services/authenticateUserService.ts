@@ -1,3 +1,4 @@
+import { AppError } from '../errors/AppError';
 import { UserRepository } from '../repositories/UserRepository';
 
 interface IRequest {
@@ -11,6 +12,10 @@ class AuthenticateUserService {
         const userRepository = new UserRepository();
 
         const user = await userRepository.findByEmail(email);
+
+        if (!user) {
+            throw new AppError('User not found', 404);
+        }
     }
 }
 
