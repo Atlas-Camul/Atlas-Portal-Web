@@ -23,13 +23,15 @@ class UserRepository {
         return user;
     }
 
-    async findByEmail(email: string): Promise<User | undefined>{
+    async findByEmail({ email }:IUser): Promise<User | undefined>{
         const user = await this.repository.findOne({
-            where: {email}
+            where: [{ email }]
             });
 
         return user;
     }
+
+   
 }
 
 export {UserRepository};

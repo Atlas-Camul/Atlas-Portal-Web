@@ -8,6 +8,7 @@ import { passwordResetRoutes } from './passwordReset.route';
 import { passwordResetEmailRoutes } from './passwordResedEmail.routes';
 import { signinRoutes } from './signin.routes';
 import { signupRoutes } from './signup.routes';
+import { sessionsRoutes } from './sessions.routes';
 
 const routes = Router();
 routes.use('/', homeRoutes);
@@ -19,6 +20,7 @@ routes.use('/auth/password-reset', passwordResetRoutes);
 routes.use('/auth/password-reset-email', passwordResetEmailRoutes);
 routes.use('/auth/signin', signinRoutes);
 routes.use('/auth/signup', signupRoutes);
+routes.use('/sessions', sessionsRoutes);
 
 
 export {routes};
