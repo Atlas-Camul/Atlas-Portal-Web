@@ -11,7 +11,7 @@ userManagementRoutes.get('/', async (req, res) => {
     const users = await listUsersService.execute();
 
     return res.json(users);
-})
+});
 
 userManagementRoutes.put('/', async (req, res) => {
     const { name, email, phone, password } = req.body;
