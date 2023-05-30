@@ -12,7 +12,7 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticed';
 
 const routes = Router();
 
-routes.use(ensureAuthenticated);
+//routes.use(ensureAuthenticated);
 
 routes.use('/', homeRoutes);
 routes.use('/user-management', userManagementRoutes);
@@ -28,9 +28,8 @@ routes.use('/auth/signup', signupRoutes);
 export {routes};
 
 /**
- * 200 - Success
- * 201 - Created
- * 400 - Bad Request
- * 404 - Not Found
- * 500 - Internal Server Error
+ * GET - Buscar e retornar algo
+ * POST - Criar algo
+ * PUT - Atualizar
+ * PATCH - Atualizar um único elemento
  */

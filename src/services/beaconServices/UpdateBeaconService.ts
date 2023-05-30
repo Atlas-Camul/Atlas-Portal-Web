@@ -1,20 +1,20 @@
-import { Beacon } from '../entities/Beacon';
-import { AppError } from '../errors/AppError';
-import { BeaconRepository } from '../repositories/BeaconRepository';
+import { Beacon } from '../../entities/Beacon';
+import { AppError } from '../../errors/AppError';
+import { BeaconRepository } from '../../repositories/BeaconRepository';
 
 interface IRequest {
-    id: number,
     name: string,
     latitude: string,
     longitude: string,
-    zoneID: number
+    zoneID: number,
+    macAddress: string
 }
 
 class UpdateBeaconService {
-    async execute({ id, name, latitude, longitude, zoneID }: IRequest): Promise<Beacon> {
+    async execute({ name, latitude, longitude, zoneID, macAddress }: IRequest): Promise<Beacon> {
         const beaconRepository = new BeaconRepository();
 
-        const beaconExist = await beaconRepository.findById(id);
+        const beaconExist = await beaconRepository.findByMacAddress(macAddress);
 
         if (!beaconExist) {
             throw new AppError('Beacon not found', 404);

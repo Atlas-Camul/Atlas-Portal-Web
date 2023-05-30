@@ -1,12 +1,12 @@
-import { Beacon } from '../entities/Beacon';
-import { AppError } from '../errors/AppError';
-import { BeaconRepository } from '../repositories/BeaconRepository';
+import { Beacon } from '../../entities/Beacon';
+import { AppError } from '../../errors/AppError';
+import { BeaconRepository } from '../../repositories/BeaconRepository';
 
 class DeleteBeaconService {
-    async execute(id: number): Promise<Beacon> {
+    async execute(macAddress: string): Promise<Beacon> {
         const beaconRepository = new BeaconRepository();
 
-        const beaconExist = await beaconRepository.findById(id);
+        const beaconExist = await beaconRepository.findByMacAddress(macAddress);
 
         if (!beaconExist) {
             throw new AppError('Beacon not found', 404);

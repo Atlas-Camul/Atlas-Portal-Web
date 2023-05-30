@@ -5,7 +5,8 @@ interface IBeacon {
     name: string,
     latitude: string,
     longitude: string,
-    zoneID: number
+    zoneID: number,
+    macAddress: string
 }
 
 class BeaconRepository {
@@ -15,9 +16,9 @@ class BeaconRepository {
         this.repository = getRepository(Beacon);
     }
 
-    async create({ name, latitude, longitude, zoneID }: IBeacon): Promise<Beacon> {
+    async create({ name, latitude, longitude, zoneID, macAddress }: IBeacon): Promise<Beacon> {
 
-        const beacon = this.repository.create({ name, latitude, longitude, zoneID });
+        const beacon = this.repository.create({ name, latitude, longitude, zoneID, macAddress });
 
         await this.repository.save(beacon);
 
@@ -26,14 +27,14 @@ class BeaconRepository {
     }
 
     async delete(beacon: Beacon): Promise<Beacon> {
-        const beaconExist = await this.repository.remove(beacon);
+        const beaconExit = await this.repository.remove(beacon);
 
-        return beaconExist;
+        return beaconExit;
     }
 
-    async findById(id: number): Promise<Beacon | null> {
+    async findByMacAddress(macAddress: string): Promise<Beacon | null> {
         const beacon = await this.repository.findOne({
-            where: { id }
+            where: { macAddress }
         });
 
         return beacon;

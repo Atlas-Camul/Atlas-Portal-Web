@@ -1,40 +1,10 @@
 import { Router } from 'express';
-import { CreateBeaconService } from '../services/CreateBeaconService';
-import { DeleteBeaconService } from '../services/DeleteBeaconService';
-import { ListBeaconsService } from '../services/ListBeaconsService';
-import { UpdateBeaconService } from '../services/UpdateBeaconService';
+import { CreateBeaconService } from '../services/beaconServices/CreateBeaconService';
+import { DeleteBeaconService } from '../services/beaconServices/DeleteBeaconService';
+import { ListBeaconsService } from '../services/beaconServices/ListBeaconsService';
+import { UpdateBeaconService } from '../services/beaconServices/UpdateBeaconService';
 
 const beaconManagementRoutes = Router();
-
-beaconManagementRoutes.post('/create', async (req, res) => {
-    const { name, latitude, longitude, zoneID } = req.body;
-
-    const createBeaconService = new CreateBeaconService();
-
-    const beacon = await createBeaconService.execute({ name, latitude, longitude, zoneID });
-
-    return res.json(beacon);
-})
-
-beaconManagementRoutes.post('/update', async (req, res) => {
-    const { id, name, latitude, longitude, zoneID } = req.body;
-
-    const updateBeaconService = new UpdateBeaconService();
-
-    const beacon = await updateBeaconService.execute({ id, name, latitude, longitude, zoneID });
-
-    return res.json(beacon);
-});
-
-beaconManagementRoutes.post('/delete', async (req, res) => {
-    const { id } = req.body;
-
-    const deleteBeaconService = new DeleteBeaconService();
-
-    const beacon = await deleteBeaconService.execute(id);
-
-    return res.json(id);
-});
 
 beaconManagementRoutes.get('/', async (req, res) => {
     const listBeaconsService = new ListBeaconsService();
@@ -42,6 +12,36 @@ beaconManagementRoutes.get('/', async (req, res) => {
     const beacons = await listBeaconsService.execute();
 
     return res.json(beacons);
+});
+
+beaconManagementRoutes.post('/', async (req, res) => {
+    const { name, latitude, longitude, zoneID, macAddress } = req.body;
+
+    const createBeaconService = new CreateBeaconService();
+
+    const beacon = await createBeaconService.execute({ name, latitude, longitude, zoneID, macAddress });
+
+    return res.json(beacon);
+})
+
+beaconManagementRoutes.put('/', async (req, res) => {
+    const { name, latitude, longitude, zoneID, macAddress } = req.body;
+
+    const updateBeaconService = new UpdateBeaconService();
+
+    const beacon = await updateBeaconService.execute({ name, latitude, longitude, zoneID, macAddress });
+
+    return res.json(beacon);
+});
+
+beaconManagementRoutes.post('/delete', async (req, res) => {
+    const { macAddress } = req.body;
+
+    const deleteBeaconService = new DeleteBeaconService();
+
+    const beacon = await deleteBeaconService.execute(macAddress);
+
+    return res.json(beacon);
 });
 
 export { beaconManagementRoutes };
