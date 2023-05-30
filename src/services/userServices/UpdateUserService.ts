@@ -1,6 +1,6 @@
-import { User } from '../entities/User';
-import { AppError } from '../errors/AppError';
-import { UserRepository } from '../repositories/UserRepository';
+import { User } from '../../entities/User';
+import { AppError } from '../../errors/AppError';
+import { UserRepository } from '../../repositories/UserRepository';
 
 interface IRequest {
     name: string,

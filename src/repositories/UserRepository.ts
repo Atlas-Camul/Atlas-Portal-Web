@@ -22,6 +22,12 @@ class UserRepository {
         return user;
     }
 
+    async delete(user: User): Promise<User> {
+        const userExit = await this.repository.remove(user);
+
+        return userExit;
+    }
+
 
 
     async findByEmail(email: string): Promise<User | null>{
@@ -33,8 +39,6 @@ class UserRepository {
         return user;
     }
 
-
-   
 
     async listAll(): Promise<User[]>{
         const user = await this.repository.find();

@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { ListUsersService } from '../services/ListUsersService';
-import { UpdateUserService } from '../services/UpdateUserService';
+import { DeleteUserService } from '../services/userServices/DeleteUserService';
+import { ListUsersService } from '../services/userServices/ListUsersService';
+import { UpdateUserService } from '../services/userServices/UpdateUserService';
 
 const userManagementRoutes = Router();
 
@@ -12,12 +13,22 @@ userManagementRoutes.get('/', async (req, res) => {
     return res.json(users);
 })
 
-userManagementRoutes.post('/', async (req, res) => {
+userManagementRoutes.put('/', async (req, res) => {
     const { name, email, phone, password } = req.body;
 
     const updateUserService = new UpdateUserService();
 
     const user = await updateUserService.execute({ name, email, phone, password });
+
+    return res.json(user);
+});
+
+userManagementRoutes.post('/delete', async (req, res) => {
+    const { email } = req.body;
+
+    const deleteUserService = new DeleteUserService();
+
+    const user = await deleteUserService.execute(email);
 
     return res.json(user);
 });

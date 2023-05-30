@@ -16,9 +16,6 @@ class Zone {
 
     @Column()
     longitude: string;
-
-    @Column()
-    restriction: number;
 }
 
 export { Zone };

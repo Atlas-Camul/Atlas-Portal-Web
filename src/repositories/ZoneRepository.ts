@@ -15,6 +15,19 @@ class ZoneRepository {
         this.repository = getRepository(Zone);
     }
 
+    async create({ name, type, latitude, longitude }: IZone): Promise<Zone> {
+        const zone = this.repository.create({ name, type, latitude, longitude });
+
+        await this.repository.save(zone);
+
+        return zone;
+    }
+
+    async delete(zone: Zone): Promise<Zone> {
+        const zoneExit = await this.repository.remove(zone);
+
+        return zoneExit;
+    }
 
     async findById(id: number): Promise<Zone | null> {
         const zone = await this.repository.findOne({
@@ -28,6 +41,12 @@ class ZoneRepository {
         const zones = await this.repository.find();
 
         return zones;
+    }
+
+    async update(zone: Zone): Promise<Zone> {
+        const zoneExit = await this.repository.save(zone);
+
+        return zoneExit;
     }
 }
 

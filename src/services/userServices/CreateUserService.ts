@@ -1,6 +1,6 @@
-import {User} from '../entities/User';
-import {UserRepository} from '../repositories/UserRepository';
-import { AppError } from '../errors/AppError';
+import {User} from '../../entities/User';
+import {UserRepository} from '../../repositories/UserRepository';
+import { AppError } from '../../errors/AppError';
 import { hash } from 'bcryptjs';
 
 interface IRequest {

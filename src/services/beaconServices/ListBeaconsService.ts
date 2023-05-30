@@ -1,5 +1,5 @@
-import { Beacon } from '../entities/Beacon';
-import { BeaconRepository } from '../repositories/BeaconRepository';
+import { Beacon } from '../../entities/Beacon';
+import { BeaconRepository } from '../../repositories/BeaconRepository';
 
 class ListBeaconsService {
     async execute(): Promise<Beacon[]> {

@@ -1,9 +1,9 @@
-import { AppError } from '../errors/AppError';
-import { UserRepository } from '../repositories/UserRepository';
+import { AppError } from '../../errors/AppError';
+import { UserRepository } from '../../repositories/UserRepository';
 import { compare, compareSync } from 'bcryptjs';
-import authConfig from '../config/auth';
+import authConfig from '../../config/auth';
 import { sign } from 'jsonwebtoken';
-import { User } from '../entities/User';
+import { User } from '../../entities/User';
 
 
 interface IResponse{

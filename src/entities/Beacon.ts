@@ -16,6 +16,9 @@ class Beacon {
 
     @Column()
     zoneID: number;
+
+    @Column()
+    macAddress: string;
 }
 
 export { Beacon };

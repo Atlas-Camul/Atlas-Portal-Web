@@ -34,3 +34,10 @@ export {routes};
  * 404 - Not Found
  * 500 - Internal Server Error
  */
+
+/**
+ * GET - Buscar e retornar algo
+ * POST - Criar algo
+ * PUT - Atualizar
+ * PATCH - Atualizar um único elemento
+ */
