@@ -10,6 +10,9 @@ class Media {
 
     @Column()
     type: string;
+
+    @Column()
+    messageID: number;
 }
 
 export { Media };

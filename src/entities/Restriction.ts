@@ -16,6 +16,9 @@ class Restriction {
 
     @Column()
     longitude: string;
+
+    @Column()
+    zoneID: number;
 }
 
 export { Restriction };

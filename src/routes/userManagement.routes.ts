@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { DeleteUserService } from '../services/userServices/DeleteUserService';
 import { ListUsersService } from '../services/userServices/ListUsersService';
 import { UpdateUserService } from '../services/userServices/UpdateUserService';
+import { FindUserService } from '../services/userServices/FindUserService';
 
 const userManagementRoutes = Router();
 
@@ -23,7 +24,7 @@ userManagementRoutes.put('/', async (req, res) => {
     return res.json(user);
 });
 
-userManagementRoutes.post('/delete', async (req, res) => {
+userManagementRoutes.delete('/', async (req, res) => {
     const { email } = req.body;
 
     const deleteUserService = new DeleteUserService();
@@ -32,6 +33,19 @@ userManagementRoutes.post('/delete', async (req, res) => {
 
     return res.json(user);
 });
+
+
+userManagementRoutes.get('/', async (req, res) => {
+
+    const { email } = req.body;
+
+    const findUserService = new FindUserService();
+
+    const user = await findUserService.execute(email);
+
+    return res.json(user);
+});
+
 
 
 export {userManagementRoutes};

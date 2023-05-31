@@ -16,6 +16,12 @@ class Message {
 
     @Column()
     longitude: string;
+
+    @Column()
+    zoneID: number;
+
+    @Column()
+    userID: number;
 }
 
 export { Message };

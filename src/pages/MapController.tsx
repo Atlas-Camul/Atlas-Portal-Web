@@ -11,6 +11,8 @@ import {
   IAzureMapHtmlMarkerEvent,
   IAzureMapLayerType,
   IAzureMapOptions,
+  IAzureMapControls,
+  ControlOptions
 } from "react-azure-maps";
 import {
   AuthenticationType,
@@ -223,8 +225,8 @@ const MarkersExample: React.FC = () => {
 
   const memoizedMarkerRender: IAzureDataSourceChildren = useMemo(
     (): any =>
-      markers.map((marker) =>
-        renderPoint(marker.geometry, marker.properties?.name)
+          markers.map((marker) =>
+              renderPoint(marker.geometry, marker.properties?.name)
       ),
     [markers]
   );
