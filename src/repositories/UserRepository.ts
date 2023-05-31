@@ -4,7 +4,8 @@ import { User } from '../entities/User';
 interface IUser {
     name: string,
     email: string,
-    password: string
+    password: string,
+    lastLogin: Date
 }
 
 class UserRepository {
@@ -14,8 +15,8 @@ class UserRepository {
         this.repository = getRepository(User);
     }
 
-    async create({name, email, password} : IUser): Promise<User>{
-        const user = this.repository.create({name, email, password});
+    async create({ name, email, password, lastLogin }: IUser): Promise<User>{
+        const user = this.repository.create({ name, email, password, lastLogin });
 
         await this.repository.save(user);
 
@@ -51,7 +52,6 @@ class UserRepository {
 
         return userExit;
     }
-
 }
 
 export {UserRepository};

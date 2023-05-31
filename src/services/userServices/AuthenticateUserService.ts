@@ -4,6 +4,7 @@ import { compare, compareSync } from 'bcryptjs';
 import authConfig from '../../config/auth';
 import { sign } from 'jsonwebtoken';
 import { User } from '../../entities/User';
+import { UpdateSessionService } from './UpdateSessionService';
 
 
 interface IResponse{
@@ -37,6 +38,10 @@ class AuthenticateUserService {
         const token = sign({}, secret, {
             expiresIn
         });
+
+        const updateSessionService = new UpdateSessionService();
+
+        await updateSessionService.execute(user);
 
         return { user, token };     
 

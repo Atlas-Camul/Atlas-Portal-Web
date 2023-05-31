@@ -16,6 +16,9 @@ class User {
 
     @Column()
     password: string;
+
+    @Column()
+    lastLogin: Date;
 }
 
 export { User };
