@@ -1,4 +1,5 @@
-yarnimport React from 'react';
+//yarnimport React from 'react';
+//import React from 'react';
 import LogoExtended from '../../images/logo/logo-extended.png';
 import { Link } from 'react-router-dom';
 
@@ -46,7 +47,26 @@ const SignUp = () => {
         */
 
         if (name == "" || email == "" || password == "") {
-            return;
+            setErrorMessage('Preencha todos os campos obrigatórios.');
+            return null;
+        }
+
+        // Se for diferente, retorna null
+        if (password !== repassword) {
+            setErrorMessage('As senhas digitadas não coincidem.');
+            return null;
+        }
+
+        // Verificação se o campo email segue uma estrutura de email
+        if (!isValidEmail(email)) {
+            setErrorMessage('Insira um endereço de e-mail válido.');
+            return null;
+        }
+
+        // Bloqueio da senha para ser restrita a apenas 8 caracteres
+        if (password.length !== 8) {
+            setErrorMessage('A senha deve conter exatamente 8 caracteres.');
+            return null;
         }
 
         const element = {
@@ -57,6 +77,12 @@ const SignUp = () => {
 
         return element;
     }
+    function isValidEmail(email) {
+        // Lógica para verificar se o email possui uma estrutura válida
+        const emailRegex = /^\S+@\S+\.\S+$/;
+        return emailRegex.test(email);
+    }
+
     return (
         <main>
             <a href="https://www.isep.ipp.pt/" className='inline-block' target="_blank">
