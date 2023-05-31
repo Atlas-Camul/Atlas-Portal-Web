@@ -1,4 +1,3 @@
-
 import React from 'react';
 import LogoExtended from '../../images/logo/logo-extended.png';
 import { Link } from 'react-router-dom';
