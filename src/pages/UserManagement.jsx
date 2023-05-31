@@ -3,6 +3,48 @@ import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumb';
 import TableThree from '../components/TableThree';
 
+
+const SignUp = () => {
+    function submitClient() {
+        const element = inputElements();
+
+
+        fetch('/user_management', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        })
+            .then(res => {
+                if (res.ok) {
+                    console.log('Requisição POST 1 bem-sucedida');
+                } else {
+                    console.error('Erro na requisição GET 1');
+                }
+            })
+            .catch(error => {
+                console.error('Erro na requisição POST 1:', error);
+            });
+    }
+    function inputElements() {
+
+        const name = document.getElementById('fullName').value;
+        const email = document.getElementById('emailUser').value;
+
+        if (name == "" || email == "") {
+            return;
+        }
+
+        const element = {
+            name: name,
+            email: email,
+
+        };
+
+        return element;
+    }
+
 const Tables = () => {
   return (
     <DefaultLayout>
@@ -45,8 +87,8 @@ const Tables = () => {
                     <input
                       className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
                       type='text'
-                      name='phoneNumber'
-                      id='phoneNumber'
+                      name='emailUser'
+                      id='emailUser'
                     />
                   </div>
                 </div>
