@@ -20,6 +20,11 @@ class UpdateBeaconService {
             throw new AppError('Beacon not found', 404);
         }
 
+        beaconExist.name = name;
+        beaconExist.latitude = latitude;
+        beaconExist.longitude = longitude;
+        beaconExist.zoneID = zoneID;
+
         const beacon = await beaconRepository.update(beaconExist);
 
         return beacon;

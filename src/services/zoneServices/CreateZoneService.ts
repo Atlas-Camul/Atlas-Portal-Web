@@ -1,5 +1,4 @@
 import { Zone } from '../../entities/Zone';
-import { AppError } from '../../errors/AppError';
 import { ZoneRepository } from '../../repositories/ZoneRepository';
 
 interface IRequest {

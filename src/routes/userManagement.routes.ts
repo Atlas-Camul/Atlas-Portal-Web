@@ -23,7 +23,7 @@ userManagementRoutes.put('/', async (req, res) => {
     return res.json(user);
 });
 
-userManagementRoutes.post('/delete', async (req, res) => {
+userManagementRoutes.delete('/', async (req, res) => {
     const { email } = req.body;
 
     const deleteUserService = new DeleteUserService();

@@ -20,6 +20,11 @@ class UpdateZoneService {
             throw new AppError('Zone not found', 404);
         }
 
+        zoneExist.name = name;
+        zoneExist.type = type;
+        zoneExist.latitude = latitude;
+        zoneExist.longitude = longitude;
+
         const zone = await zoneRepository.update(zoneExist);
 
         return zone;

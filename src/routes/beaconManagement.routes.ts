@@ -34,7 +34,7 @@ beaconManagementRoutes.put('/', async (req, res) => {
     return res.json(beacon);
 });
 
-beaconManagementRoutes.post('/delete', async (req, res) => {
+beaconManagementRoutes.delete('/', async (req, res) => {
     const { macAddress } = req.body;
 
     const deleteBeaconService = new DeleteBeaconService();
