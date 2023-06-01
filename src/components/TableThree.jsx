@@ -4,10 +4,19 @@ import { Dialog, Transition } from '@headlessui/react'
 
 const TableThree = ({jsonData}) => {
 
-    const [open, setOpen] = useState(false)
+    const [open, setOpen] = useState(false);
+    const [userData, setUserData] = useState({emailAddress: '', fullName: '', phoneNumber: '', password: ''});
 
-    const cancelButtonRef = useRef(null)
+    const cancelButtonRef = useRef(null);
 
+    const handleRowClick = (item) =>{
+        setUserData({emailAddress: item.email, fullName: item.name, phoneNumber: item.phone});
+    };
+
+    const handleCancell = (event) =>{
+        event.preventDefault();
+        setOpen(false);
+    };
 
     return (
         <div className='rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1'>
@@ -31,7 +40,7 @@ const TableThree = ({jsonData}) => {
                     </thead>
                     <tbody>
                         {jsonData.map((item, index) => (
-                            <tr key={index}>
+                            <tr key={index} onClick={() => handleRowClick(item)}>
                                 <td className='border-b border-[#eee] py-5 px-4 pl-9 dark:border-strokedark xl:pl-11'>
                                     <h5 className='font-medium text-black dark:text-white'>
                                         {item.name}
@@ -193,8 +202,8 @@ const TableThree = ({jsonData}) => {
                                                                     type='text'
                                                                     name='fullName'
                                                                     id='fullName'
-                                                                    placeholder='Fernando Santos Silva'
-                                                                    defaultValue='Fernando Santos Silva'
+                                                                    placeholder={userData.fullName}
+                                                                    defaultValue={userData.fullName}
                                                                 />
                                                             </div>
                                                         </div>
@@ -211,8 +220,8 @@ const TableThree = ({jsonData}) => {
                                                                 type='text'
                                                                 name='phoneNumber'
                                                                 id='phoneNumber'
-                                                                placeholder='+351 932 654 987'
-                                                                defaultValue='+351 932 654 987'
+                                                                placeholder={userData.phoneNumber}
+                                                                defaultValue={userData.phoneNumber}
                                                             />
                                                         </div>
                                                     </div>
@@ -255,8 +264,8 @@ const TableThree = ({jsonData}) => {
                                                                 type='email'
                                                                 name='emailAddress'
                                                                 id='emailAddress'
-                                                                placeholder='fss@isep.ipp.pt'
-                                                                defaultValue='fss@isep.ipp.pt'
+                                                                placeholder={userData.emailAddress}
+                                                                defaultValue={userData.emailAddress}
                                                             />
                                                         </div>
                                                     </div>
@@ -264,17 +273,17 @@ const TableThree = ({jsonData}) => {
                                                     <div className='mb-5.5'>
                                                         <label
                                                             className='mb-3 block text-sm font-medium text-black dark:text-white'
-                                                            htmlFor='Username'
+                                                            htmlFor='Password'
                                                         >
-                                                            Username
+                                                            Password
                                                         </label>
                                                         <input
                                                             className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
                                                             type='text'
-                                                            name='Username'
-                                                            id='Username'
-                                                            placeholder='fernandossantoss1971'
-                                                            defaultValue='fernandossantoss1971'
+                                                            name='password'
+                                                            id='password'
+                                                            placeholder='Secret Password'
+                                                            defaultValue={userData.password}
                                                         />
                                                     </div>
 
@@ -289,7 +298,7 @@ const TableThree = ({jsonData}) => {
                                                         </button>
                                                         <button
                                                             className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
-                                                            onClick={() => setOpen(false)}
+                                                            onClick={handleCancell}
                                                         >
                                                             Save
                                                         </button>
