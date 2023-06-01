@@ -3,10 +3,17 @@ import { DeleteUserService } from '../services/userServices/DeleteUserService';
 import { ListUsersService } from '../services/userServices/ListUsersService';
 import { UpdateUserService } from '../services/userServices/UpdateUserService';
 import { FindUserService } from '../services/userServices/FindUserService';
+import { AppError } from '../errors/AppError';
 
 const userManagementRoutes = Router();
 
-userManagementRoutes.get('/', async (req, res) => {
+userManagementRoutes.get('/list', async (req, res) => {
+    const referer = req.headers.referer;
+
+    if (!referer) {
+        throw new AppError("Page not found", 404);
+    }
+
     const listUsersService = new ListUsersService();
 
     const users = await listUsersService.execute();
@@ -14,8 +21,15 @@ userManagementRoutes.get('/', async (req, res) => {
     return res.json(users);
 });
 
-userManagementRoutes.put('/', async (req, res) => {
+userManagementRoutes.put('/update', async (req, res) => {
+    const referer = req.headers.referer;
+
+    if (!referer) {
+        throw new AppError("Page not found", 404);
+    }
+
     const { name, email, phone, password } = req.body;
+
 
     const updateUserService = new UpdateUserService();
 
@@ -24,7 +38,13 @@ userManagementRoutes.put('/', async (req, res) => {
     return res.json(user);
 });
 
-userManagementRoutes.delete('/', async (req, res) => {
+userManagementRoutes.delete('/delete', async (req, res) => {
+    const referer = req.headers.referer;
+
+    if (!referer) {
+        throw new AppError("Page not found", 404);
+    }
+
     const { email } = req.body;
 
     const deleteUserService = new DeleteUserService();
@@ -35,7 +55,12 @@ userManagementRoutes.delete('/', async (req, res) => {
 });
 
 
-userManagementRoutes.get('/', async (req, res) => {
+userManagementRoutes.get('/find', async (req, res) => {
+    const referer = req.headers.referer;
+
+    if (!referer) {
+        throw new AppError("Page not found", 404);
+    }
 
     const { email } = req.body;
 
