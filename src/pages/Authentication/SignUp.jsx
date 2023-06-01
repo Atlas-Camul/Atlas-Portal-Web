@@ -1,11 +1,13 @@
-import React from 'react';
+//import React from 'react';
+import React, { useState } from 'react';
 import LogoExtended from '../../images/logo/logo-extended.png';
 import { Link } from 'react-router-dom';
 
 const SignUp = () => {
-    function submitClient() {
+    function submitClient(event) {
+        event.preventDefault();
         const element = inputElements();
-        const [errorMessage, setErrorMessage] = useState(null);
+        if (!element) return;
 
 
        
@@ -46,38 +48,41 @@ const SignUp = () => {
         * inserir mesnagem de texto para os casos de excessões de (email, campo vazio, senha incorreta, etc...)
         */
 
-        // Verificação se o campo email segue uma estrutura de email
-        /*if (!isValidEmail(email)) {
-           setErrorMessage('Insira um endereço de e-mail válido.');
-            return null;
-        }*/
-
-        // Verificação se todos os campos estão preenchidos
-        if (!setErrorMessage(name, email, password, repassword)) {
-            setErrorMessage('Preencha corretamente todos os campos.');
-            return null;
+           // Verificar se o campo de retype password é igual ao campo de password
+        if (password !== repassword) {
+            alert('As senhas não correspondem.');
+            return ;
         }
 
+          // Verificar se algum dos campos está vazio
+        if (!name || !email || !password || !repassword) {
+            alert('Por favor, preencha todos os campos.');
+            return ;
+        }
+
+         // Verificar se o campo de email segue a estrutura de email
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailPattern.test(email)) {
+            alert('O email inserido não é válido.');
+            return ;
+        }
+           // Verificar se a senha tem menos de 8 caracteres
+        if (password.length < 8) {
+            alert('A senha deve ter no mínimo 8 caracteres.');
+            return ;
+        }
+            window.location.href = "/auth/signin";
         const element = {
             name: name,
             email: email,
-            password: password
+            password: password,
+            repassword: repassword
         };
 
         return element;
     }
-    /*function isValidEmail(email) {
-        // Lógica para verificar se o email possui uma estrutura válida
-        const emailRegex = /^\S+@\S+\.\S+$/;
-        return emailRegex.test(email);
-    }*/
-
-    function setErrorMessage(name) 
-        {
-            // Lógica para verificar se o email possui uma estrutura válida
-            const emailRegex = "";
-            return emailRegex.test(name);
-        }
+  
+   
 
 
     return (
