@@ -21,13 +21,7 @@ userManagementRoutes.get('/list', async (req, res) => {
     return res.json(users);
 });
 
-userManagementRoutes.put('/update', async (req, res) => {
-    const referer = req.headers.referer;
-
-    if (!referer) {
-        throw new AppError("Page not found", 404);
-    }
-
+userManagementRoutes.put('/', async (req, res) => {
     const { name, email, phone, password } = req.body;
 
 
@@ -38,13 +32,7 @@ userManagementRoutes.put('/update', async (req, res) => {
     return res.json(user);
 });
 
-userManagementRoutes.delete('/delete', async (req, res) => {
-    const referer = req.headers.referer;
-
-    if (!referer) {
-        throw new AppError("Page not found", 404);
-    }
-
+userManagementRoutes.delete('/', async (req, res) => {
     const { email } = req.body;
 
     const deleteUserService = new DeleteUserService();
@@ -62,7 +50,13 @@ userManagementRoutes.get('/find', async (req, res) => {
         throw new AppError("Page not found", 404);
     }
 
-    const { email } = req.body;
+    const queryParams = req.query;
+
+    var email = queryParams.email;
+
+    if (typeof email !== 'string') {
+        email = "";
+    }
 
     const findUserService = new FindUserService();
 
