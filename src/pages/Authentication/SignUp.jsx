@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 const SignUp = () => {
     function submitClient() {
         const element = inputElements();
+        const [errorMessage, setErrorMessage] = useState(null);
 
 
        
@@ -45,26 +46,15 @@ const SignUp = () => {
         * inserir mesnagem de texto para os casos de excessões de (email, campo vazio, senha incorreta, etc...)
         */
 
-        if (name == "" || email == "" || password == "") {
-            setErrorMessage('Preencha todos os campos obrigatórios.');
-            return null;
-        }
-
-        // Se for diferente, retorna null
-        if (password !== repassword) {
-            setErrorMessage('As senhas digitadas não coincidem.');
-            return null;
-        }
-
         // Verificação se o campo email segue uma estrutura de email
-        if (!isValidEmail(email)) {
-            setErrorMessage('Insira um endereço de e-mail válido.');
+        /*if (!isValidEmail(email)) {
+           setErrorMessage('Insira um endereço de e-mail válido.');
             return null;
-        }
+        }*/
 
-        // Bloqueio da senha para ser restrita a apenas 8 caracteres
-        if (password.length !== 8) {
-            setErrorMessage('A senha deve conter exatamente 8 caracteres.');
+        // Verificação se todos os campos estão preenchidos
+        if (!setErrorMessage(name, email, password, repassword)) {
+            setErrorMessage('Preencha corretamente todos os campos.');
             return null;
         }
 
@@ -76,11 +66,19 @@ const SignUp = () => {
 
         return element;
     }
-    function isValidEmail(email) {
+    /*function isValidEmail(email) {
         // Lógica para verificar se o email possui uma estrutura válida
         const emailRegex = /^\S+@\S+\.\S+$/;
         return emailRegex.test(email);
-    }
+    }*/
+
+    function setErrorMessage(name) 
+        {
+            // Lógica para verificar se o email possui uma estrutura válida
+            const emailRegex = "";
+            return emailRegex.test(name);
+        }
+
 
     return (
         <main>
