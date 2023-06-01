@@ -9,22 +9,22 @@ import { useEffect } from 'react';
 const Tables = () => {
     const [jsonData, setJsonData] = useState([]);
     const [formData, setFormData] = useState({fullName:'', email:''});
-
+    
+    //List All Users
     useEffect(() => {
         fetch('/user-management/list')
             .then(res => res.json())
             .then(data => setJsonData(data));
     }, []);
 
+    //Search one user by Email
     const searchUser = (event) => {
         event.preventDefault();
-
 
         const element = {
             name: formData.fullName,
             email: formData.email
         };
-
 
         if ((element.name || element.email) === "") {
             alert('Enter a valid value');
@@ -51,6 +51,44 @@ const Tables = () => {
 
         setFormData({ fullname: '', email: '' });
     }
+
+    //Update one user
+    const updateUser = (element) => {
+        fetch('/user-management',{
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        });
+    };
+
+    //Detele one User
+    const deleteUser = (element) =>{
+        const result = window.confirm('The data cannot be recovered! Would you like to confirm this action?');
+        
+        if(!result){
+            return;
+        }
+
+        
+         fetch('/user-management',{
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        }).then(res => res.json())
+        .then(data => {
+            if('status' in data){
+                return;
+            }
+
+            alert('User '+data.name+' deleted');
+
+            window.location.reload(true);
+        });
+    };
 
     const handleChange = (event) => {
         setFormData({
@@ -124,7 +162,7 @@ const Tables = () => {
                         </div>
                     </div>
                 </div>
-                <TableThree jsonData={jsonData} />
+                <TableThree jsonData={jsonData} updateUser={updateUser} deleteUser={deleteUser}/>
             </div>
         </DefaultLayout>
     )
