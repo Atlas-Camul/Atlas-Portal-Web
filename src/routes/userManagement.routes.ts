@@ -3,10 +3,17 @@ import { DeleteUserService } from '../services/userServices/DeleteUserService';
 import { ListUsersService } from '../services/userServices/ListUsersService';
 import { UpdateUserService } from '../services/userServices/UpdateUserService';
 import { FindUserService } from '../services/userServices/FindUserService';
+import { AppError } from '../errors/AppError';
 
 const userManagementRoutes = Router();
 
-userManagementRoutes.get('/', async (req, res) => {
+userManagementRoutes.get('/list', async (req, res) => {
+    const referer = req.headers.referer;
+
+    if (!referer) {
+        throw new AppError("Page not found", 404);
+    }
+
     const listUsersService = new ListUsersService();
 
     const users = await listUsersService.execute();
@@ -16,6 +23,7 @@ userManagementRoutes.get('/', async (req, res) => {
 
 userManagementRoutes.put('/', async (req, res) => {
     const { name, email, phone, password } = req.body;
+
 
     const updateUserService = new UpdateUserService();
 
@@ -35,9 +43,20 @@ userManagementRoutes.delete('/', async (req, res) => {
 });
 
 
-userManagementRoutes.get('/', async (req, res) => {
+userManagementRoutes.get('/find', async (req, res) => {
+    const referer = req.headers.referer;
 
-    const { email } = req.body;
+    if (!referer) {
+        throw new AppError("Page not found", 404);
+    }
+
+    const queryParams = req.query;
+
+    var email = queryParams.email;
+
+    if (typeof email !== 'string') {
+        email = "";
+    }
 
     const findUserService = new FindUserService();
 
