@@ -1,11 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\src",
+    "\\src\\pages",
+    "\\src\\pages\\Authentication"
   ],
-<<<<<<< HEAD
-  "SelectedNode": "\\C:\\Users\\Mayro\\Source\\Repos\\Atlas-Portal-Web",
-=======
-  "SelectedNode": "\\C:\\Users\\wrbas\\Source\\Repos\\Atlas-Portal-Web",
->>>>>>> 50ee0968afcb70bcd2a9e7dc5a0865915bf6bbbc
   "PreviewInSolutionExplorer": false
 }
