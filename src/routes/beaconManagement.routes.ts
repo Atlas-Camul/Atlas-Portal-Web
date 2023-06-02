@@ -7,7 +7,7 @@ import { UpdateBeaconService } from '../services/beaconServices/UpdateBeaconServ
 
 const beaconManagementRoutes = Router();
 
-beaconManagementRoutes.get('/', async (req, res) => {
+beaconManagementRoutes.get('/list', async (req, res) => {
     const referer = req.headers.referer;
 
     if (!referer) {

@@ -2,15 +2,6 @@ import React from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumb';
 import BeaconTable from '../components/BeaconTable';
-import { AddBeacon } from '../controller/BeaconController'
-
-
-const submitBeacon = () => {
-    const beaconName = document.getElementsByName("fullName")[0].value;
-    const beaconLocation = document.getElementsByName("localization")[0].value;
-    AddBeacon(beaconName, beaconLocation);
-}
-
 
 
 const Tables = () => {
@@ -64,7 +55,7 @@ const Tables = () => {
                   <button
                    className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
                    type='submit'
-                   onClick={submitBeacon} >
+                   >
                     Add Beacon
                   </button>
                 </div>
