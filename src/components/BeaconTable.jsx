@@ -1,6 +1,89 @@
 import React from 'react';
+import { Fragment, useRef, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { saveAs } from 'file-saver-es';
+import { format } from 'date-fns';
 
-const TableThree = () => {
+const TableThree = (jsonData, updateBeacon, deleteBeacon) => {
+
+    const [open, setOpen] = useState(false);
+    const [beaconData, setBeaconData] = useState({ name: '', latitude: '', longitude: '', zoneID: '', macAdress: '' });
+
+    const cancelButtonRef = useRef(null);
+
+    //Selects the current row and inserts its data in the variable userData
+    const handleRowClick = (item) => {
+        beaconData.name = item.name;
+        beaconData.location = item.location;
+    };
+
+    //Action when cancelling the update window
+    const handleCancell = (event) => {
+        event.preventDefault();
+        setOpen(false);
+    };
+
+    //Action to perform a beacon's update
+    const handleSave = () => {
+        const element = {
+            name: beaconData.fullName,
+
+        };
+
+        if (updateBeacon) {
+            updateBeacon(element);
+        }
+        setOpen(false);
+    };
+
+    //Captures the change of the input in question and adds it to an attribute in beaconData
+    const handleChange = (event) => {
+        setBeaconData({
+            ...beaconData,
+            [event.target.name]: event.target.value
+        });
+    };
+
+    //Deletes the selected beacon
+    const handleDelete = (item) => {
+        handleRowClick(item);
+
+        const element = {
+            name: beaconData.name
+        }
+
+        if (deleteBeacon) {
+            deleteBeacon(element);
+        }
+    };
+
+
+    //Export Data
+    const handleExportCSV = (item) => {
+        handleRowClick(item);
+
+        //Creates the CSV content from the table data
+        const csvContent = "data:text/csv;charset=utf-8," + Object.values(userData).join(',');
+
+        //Creates a new Blob with the CSV content
+        const csvBlob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+
+        //Saves the CSV file to disk
+        saveAs(csvBlob, 'beaconData.csv');
+    };
+
+    ////Convert DateTime to Format dd-mm-aaaa HH:mm
+    //const convertDate = (dateString) => {
+    //    if (!dateString) {
+    //        return dateString;
+    //    }
+
+    //    const date = new Date(dateString);
+
+    //    return format(date, 'dd-MM-yyyy HH:mm');
+    //};
+
+
   return (
     <div className='rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1'>
       <div className='max-w-full overflow-x-auto'>

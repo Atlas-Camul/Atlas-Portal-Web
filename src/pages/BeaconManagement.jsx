@@ -1,10 +1,103 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DefaultLayout from '../layout/DefaultLayout';
 import Breadcrumb from '../components/Breadcrumb';
 import BeaconTable from '../components/BeaconTable';
+import { useEffect } from 'react';
 
 
 const Tables = () => {
+
+    const [jsonData, setJsonData] = useState([]);
+    const [formData, setFormData] = useState({ name: '', location: '' });
+
+
+    //List All Beacons
+    useEffect(() => {
+        fetch('/beacon-management/List')
+            .then(res => res.json())
+            .then(data => setJsonData(data));
+    }, []);
+
+    //Add one Beacon
+    const addBeacon = (event) => {
+        event.preventDefault();
+
+        const element = {
+            name: formData.name,
+            location: formData.location
+        };
+
+        if ((element.name || element.location) === "") {
+            alert('Enter a valid value');
+            return;
+        }
+
+        fetch('/beacon-management', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        }).then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    return;
+                }
+
+                alert('Beacon ' + data.name + ' added');
+
+                window.location.reload(true);
+            });
+
+        setFormData({ name: '', location: '' });
+    };
+
+    //Update one Beacon
+    const updateBeacon = (element) => {
+        fetch('/beacon-management', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        });
+    };
+
+    //Detele one Beacon
+    const deleteBeacon = (element) => {
+        const result = window.confirm('The data cannot be recovered! Would you like to confirm this action?');
+
+        if (!result) {
+            return;
+        }
+
+
+        fetch('/beacon-management', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        }).then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    return;
+                }
+
+                alert('Beacon ' + data.name + ' deleted');
+
+                window.location.reload(true);
+            });
+    };
+
+    const handleChange = (event) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value
+        });
+    };
+
+
   return (
     <DefaultLayout>
       <Breadcrumb pageName='Beacon Management' />
@@ -32,6 +125,8 @@ const Tables = () => {
                         type='text'
                         name='fullName'
                         id='fullName'
+                        onBlur={handleChange}
+                        placeholder='Name'
                       />
                     </div>
                   </div>
@@ -44,10 +139,12 @@ const Tables = () => {
                       Loacalization
                     </label>
                     <input
-                      className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
-                      type='text'
-                      name='localization'
-                      id='localization'
+                       className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
+                       type='text'
+                       name='localization'
+                       id='localization'
+                       onBlur={handleChange}
+                       placeholder='Localization'
                     />
                   </div>
                 </div>
@@ -62,8 +159,8 @@ const Tables = () => {
               </form>
             </div>
           </div>
-        </div>
-        <BeaconTable />
+         </div>
+         <BeaconTable jsonData={jsonData} addBeacon={addBeacon} updateBeacon={updateBeacon} deleteBeacon={deleteBeacon} />
       </div>
     </DefaultLayout>
   )
