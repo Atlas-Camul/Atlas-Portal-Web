@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import LogoExtended from '../../images/logo/logo-extended.png';
 import { Link } from 'react-router-dom';
 
+
 const SignUp = () => {
     function submitClient(event) {
         event.preventDefault();
@@ -19,14 +20,14 @@ const SignUp = () => {
             body: JSON.stringify(element)
         })
             .then(res => {
-                if (res.ok) {
-                    console.log('Requisição POST 1 bem-sucedida');
-                } else {
-                    console.error('Erro na requisição POST 1');
+                if(res.ok){
+                     window.location.href = "/auth/signin";
+                }else if(res.status==400){
+                    const result = window.confirm('The forwarded e-mail is already being used. Go to LOGIN?');
+                    if(result){
+                        window.location.href = "/auth/signin";
+                    }
                 }
-            })
-            .catch(error => {
-                console.error('Erro na requisição POST 1:', error);
             });
     }
     function inputElements() {
@@ -71,7 +72,7 @@ const SignUp = () => {
             alert('A senha deve ter no mínimo 8 caracteres.');
             return ;
         }
-            window.location.href = "/auth/signin";
+
         const element = {
             name: name,
             email: email,
