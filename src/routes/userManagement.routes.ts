@@ -24,7 +24,6 @@ userManagementRoutes.get('/list', async (req, res) => {
 userManagementRoutes.put('/', async (req, res) => {
     const { name, email, phone, password } = req.body;
 
-
     const updateUserService = new UpdateUserService();
 
     const user = await updateUserService.execute({ name, email, phone, password });

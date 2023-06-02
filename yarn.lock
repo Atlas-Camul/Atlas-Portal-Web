@@ -2280,6 +2280,13 @@
   dependencies:
     "@types/node" "*"
 
+"@types/date-fns@^2.6.0":
+  version "2.6.0"
+  resolved "https://registry.yarnpkg.com/@types/date-fns/-/date-fns-2.6.0.tgz#b062ca46562002909be0c63a6467ed173136acc1"
+  integrity sha512-9DSw2ZRzV0Tmpa6PHHJbMcZn79HHus+BBBohcOaDzkK/G3zMjDUDYjJIWBFLbkh+1+/IOS0A59BpQfdr37hASg==
+  dependencies:
+    date-fns "*"
+
 "@types/eslint-scope@^3.7.3":
   version "3.7.4"
   resolved "https://registry.npmjs.org/@types/eslint-scope/-/eslint-scope-3.7.4.tgz"
@@ -2325,6 +2332,11 @@
     "@types/express-serve-static-core" "^4.17.33"
     "@types/qs" "*"
     "@types/serve-static" "*"
+
+"@types/file-saver-es@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@types/file-saver-es/-/file-saver-es-2.0.1.tgz#51147090299e110e79a9e67df21913e53b4bf484"
+  integrity sha512-ifoocKtUTJCQ4GMKBm+EK8Swk9DzrWfHhxGJ3jdhFijT9UJzA4P97zoq3Qii9QU51pSe3JwbS1i6s0nifOWHwg==
 
 "@types/graceful-fs@^4.1.2":
   version "4.1.6"
@@ -4100,9 +4112,9 @@ data-urls@^2.0.0:
     whatwg-mimetype "^2.3.0"
     whatwg-url "^8.0.0"
 
-date-fns@^2.29.3:
+date-fns@*, date-fns@^2.29.3, date-fns@^2.30.0:
   version "2.30.0"
-  resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.30.0.tgz"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.30.0.tgz#f367e644839ff57894ec6ac480de40cae4b0f4d0"
   integrity sha512-fnULvOpxnC5/Vg3NCiWelDsLiUc9bRwAPs/+LfTLNvetFCtCTN+yQz15C/fs4AwX1R9K5GLtLfn8QW+dWisaAw==
   dependencies:
     "@babel/runtime" "^7.21.0"
@@ -5071,6 +5083,11 @@ file-loader@^6.2.0:
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
+
+file-saver-es@^2.0.5:
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/file-saver-es/-/file-saver-es-2.0.5.tgz#5afcb95c3c9884b9cf0852046ec60d46b676790c"
+  integrity sha512-Kg0lt+is9nOyi/VDms9miScNGot25jVFbjFccXuCL/shd2Q+rt70MALxHVkXllsX83JEBLiHQNjDPGd/6FIOoQ==
 
 filelist@^1.0.4:
   version "1.0.4"

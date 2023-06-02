@@ -1,21 +1,89 @@
 import React from 'react';
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
+import { Fragment, useRef, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import {saveAs} from 'file-saver-es';
+import { format } from 'date-fns';
 
-const TableThree = ({jsonData}) => {
+const TableThree = ({jsonData, updateUser, deleteUser}) => {
 
     const [open, setOpen] = useState(false);
-    const [userData, setUserData] = useState({emailAddress: '', fullName: '', phoneNumber: '', password: ''});
+    const [userData, setUserData] = useState({fullName: '', emailAddress: '', phoneNumber: '', password: '', lastLogin:''});
 
     const cancelButtonRef = useRef(null);
-
+    
+    //Selects the current row and inserts its data in the variable userData
     const handleRowClick = (item) =>{
-        setUserData({emailAddress: item.email, fullName: item.name, phoneNumber: item.phone});
+        userData.fullName = item.name;
+        userData.emailAddress = item.email;
+        userData.phoneNumber = item.phone;
+        userData.lastLogin = item.lastLogin;
     };
 
+    //Action when cancelling the update window
     const handleCancell = (event) =>{
         event.preventDefault();
         setOpen(false);
+    };
+
+    //Action to perform a user's update
+    const handleSave = () =>{
+        const element = {
+            name: userData.fullName,
+            email: userData.emailAddress,
+            phone: userData.phoneNumber,
+            password: userData.password
+        };
+
+        if(updateUser){
+            updateUser(element);
+        }
+        setOpen(false);
+    };
+
+    //Captures the change of the input in question and adds it to an attribute in userData
+    const handleChange = (event) => {
+        setUserData({
+            ...userData,
+            [event.target.name]: event.target.value
+        });
+    };
+
+    //Deletes the selected user
+    const handleDelete = (item) =>{
+        handleRowClick(item);
+
+        const element = {
+            email: userData.emailAddress
+        }
+
+        if(deleteUser){
+            deleteUser(element);
+        }
+    };
+
+    //Export Data
+    const handleExportCSV = (item) => {
+        handleRowClick(item);
+
+        //Creates the CSV content from the table data
+        const csvContent = "data:text/csv;charset=utf-8," + Object.values(userData).join(',');
+
+        //Creates a new Blob with the CSV content
+        const csvBlob = new Blob([csvContent], { type: "text/csv;charset=utf-8" });
+
+        //Saves the CSV file to disk
+        saveAs(csvBlob, 'userData.csv');
+    };
+
+    //Convert DateTime to Format dd-mm-aaaa HH:mm
+    const convertDate = (dateString) => {
+        if(!dateString){
+            return dateString;
+        }
+
+        const date = new Date(dateString);
+
+         return format(date, 'dd-MM-yyyy HH:mm');
     };
 
     return (
@@ -50,11 +118,11 @@ const TableThree = ({jsonData}) => {
                                     <p className='text-black dark:text-white'>{item.email}</p>
                                 </td>
                                 <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
-                                    <p className='text-black dark:text-white'>{item.lastLogin}</p>
+                                    <p className='text-black dark:text-white'>{convertDate(item.lastLogin)}</p>
                                 </td>
                                 <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
                                     <div className='flex items-center space-x-3.5'>
-                                        <button className='hover:text-primary' onClick={() => setOpen(true)} >
+                                        <button className='hover:text-primary' onClick={() => setOpen(true)} id='showInfoButton'>
                                             <svg
                                                 className='fill-current'
                                                 width='18'
@@ -73,7 +141,7 @@ const TableThree = ({jsonData}) => {
                                                 />
                                             </svg>
                                         </button>
-                                        <button className='hover:text-primary'>
+                                        <button className='hover:text-primary' id='deleteUserButton' onClick={()=>handleDelete(item)}>
                                             <svg
                                                 className='fill-current'
                                                 width='18'
@@ -100,7 +168,7 @@ const TableThree = ({jsonData}) => {
                                                 />
                                             </svg>
                                         </button>
-                                        <button className='hover:text-primary'>
+                                        <button className='hover:text-primary' id='exportDataButton' onClick={()=>handleExportCSV(item)}>
                                             <svg
                                                 className='fill-current'
                                                 width='18'
@@ -204,6 +272,7 @@ const TableThree = ({jsonData}) => {
                                                                     id='fullName'
                                                                     placeholder={userData.fullName}
                                                                     defaultValue={userData.fullName}
+                                                                    onBlur={handleChange}
                                                                 />
                                                             </div>
                                                         </div>
@@ -222,6 +291,7 @@ const TableThree = ({jsonData}) => {
                                                                 id='phoneNumber'
                                                                 placeholder={userData.phoneNumber}
                                                                 defaultValue={userData.phoneNumber}
+                                                                onBlur={handleChange}
                                                             />
                                                         </div>
                                                     </div>
@@ -266,6 +336,8 @@ const TableThree = ({jsonData}) => {
                                                                 id='emailAddress'
                                                                 placeholder={userData.emailAddress}
                                                                 defaultValue={userData.emailAddress}
+                                                                onBlur={handleChange}
+                                                                disabled
                                                             />
                                                         </div>
                                                     </div>
@@ -284,6 +356,7 @@ const TableThree = ({jsonData}) => {
                                                             id='password'
                                                             placeholder='Secret Password'
                                                             defaultValue={userData.password}
+                                                            onBlur={handleChange}
                                                         />
                                                     </div>
 
@@ -292,13 +365,13 @@ const TableThree = ({jsonData}) => {
                                                     <div className='flex justify-end gap-4.5'>
                                                         <button
                                                             className='flex justify-center rounded border border-stroke py-2 px-6 font-medium text-black hover:shadow-1 dark:border-strokedark dark:text-white'
-                                                            onClick={() => setOpen(false)}
+                                                            onClick={handleCancell}
                                                         >
                                                             Cancel
                                                         </button>
                                                         <button
                                                             className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
-                                                            onClick={handleCancell}
+                                                            onClick={handleSave}
                                                         >
                                                             Save
                                                         </button>
