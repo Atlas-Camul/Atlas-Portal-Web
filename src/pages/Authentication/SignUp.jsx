@@ -18,15 +18,15 @@ const SignUp = () => {
             },
             body: JSON.stringify(element)
         })
-            .then(res => {
-                if (res.ok) {
-                    console.log('Requisição POST 1 bem-sucedida');
-                } else {
-                    console.error('Erro na requisição POST 1');
+            .then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    alert('erro');
+                    return;
                 }
-            })
-            .catch(error => {
-                console.error('Erro na requisição POST 1:', error);
+
+                window.location.href = "/auth/signin";
+
             });
     }
     function inputElements() {
@@ -71,7 +71,7 @@ const SignUp = () => {
             alert('A senha deve ter no mínimo 8 caracteres.');
             return ;
         }
-            window.location.href = "/auth/signin";
+            
         const element = {
             name: name,
             email: email,

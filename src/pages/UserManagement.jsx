@@ -20,6 +20,7 @@ const Tables = () => {
         event.preventDefault();
 
 
+
         const element = {
             name: formData.fullName,
             email: formData.email
@@ -58,6 +59,8 @@ const Tables = () => {
             [event.target.name]: event.target.value
         });
     };
+
+
 
     return (
         <DefaultLayout>
