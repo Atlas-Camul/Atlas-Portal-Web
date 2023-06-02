@@ -6,24 +6,22 @@ import { useEffect } from 'react';
 
 
 const Tables = () => {
-
     const [jsonData, setJsonData] = useState([]);
-    const [formData, setFormData] = useState({ name: '', latitude: '', longitude: '', zoneID: '', macAdress: '' });
+    const [formData, setFormData] = useState({ name: '', latitude: '', longitude: '', zoneID: '', macAddress: '' });
 
 
-    ////List All Beacons
-    //useEffect(() => {
-    //    fetch('/beacon-management/list')
-    //        .then(res => res.json())
-    //        .then(data => {
-    //            console.log(data);
-    //            if (Array.isArray(data)) {
-    //                setJsonData(data);
-    //            } else {
-    //                setJsonData([data]);
-    //            }
-    //        });
-    //}, []);
+    //List All Beacons
+    useEffect(() => {
+        fetch('/beacon-management/list')
+            .then(res => res.json())
+            .then(data => {
+                if (Array.isArray(data)) {
+                    setJsonData(data);
+                } else {
+                    setJsonData([data]);
+                }
+            });
+    }, []);
 
     //Add one Beacon
     const addBeacon = (event) => {
@@ -31,7 +29,6 @@ const Tables = () => {
 
         const element = {
             name: formData.name,
-            location: formData.location
         };
 
         if ((element.name || element.location) === "") {
@@ -60,7 +57,7 @@ const Tables = () => {
 
         setFormData({ name: '', latitude: '', longitude: '', zoneID: '', macAdress: '' });
     };
-
+    
     //Update one Beacon
     const updateBeacon = (element) => {
         fetch('/beacon-management', {
@@ -128,7 +125,7 @@ const Tables = () => {
                             </h3>
                         </div>
                         <div className='p-7'>
-                            <form onSubmit={addBeacon}>
+                            <form>
                                 <div className='mb-5.5 flex flex-col gap-5.5 sm:flex-row'>
                                     <div className='w-full sm:w-1/2'>
                                         <label

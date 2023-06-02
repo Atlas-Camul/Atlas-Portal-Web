@@ -3,7 +3,7 @@ import { useRef, useState } from 'react';
 import { saveAs } from 'file-saver-es';
 
 
-const TableThree = (jsonData, updateBeacon, deleteBeacon) => {
+const TableThree = ({jsonData, updateBeacon, deleteBeacon}) => {
 
     const [open, setOpen] = useState(false);
     const [beaconData, setBeaconData] = useState({ name: '', latitude: '', longitude: '', zoneID: '', macAddress: '' });
@@ -14,9 +14,9 @@ const TableThree = (jsonData, updateBeacon, deleteBeacon) => {
     const handleRowClick = (item) => {
         beaconData.name = item.name;
         beaconData.latitude = item.latitude;
-        beacon.longitude = item.longitude;
+        beaconData.longitude = item.longitude;
         beaconData.zoneID = item.zoneID;
-        beacon.macAddress = item.macAddress;
+        beaconData.macAddress = item.macAddress;
     };
 
     //Action when cancelling the update window
@@ -110,7 +110,6 @@ const TableThree = (jsonData, updateBeacon, deleteBeacon) => {
                                   <h5 className='font-medium text-black dark:text-white'>
                                       {item.name}
                                   </h5>
-                                  {/* <p className='text-sm'>$0.00</p> */}
                               </td>
                               <td className='border-b border-[#eee] py-5 px-4 dark:border-strokedark'>
                                   <p className='text-black dark:text-white'>

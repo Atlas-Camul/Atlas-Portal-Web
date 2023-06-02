@@ -5,7 +5,7 @@ import { ListMediasService } from '../services/mediaServices/ListMediasService';
 
 const userExperienceRoutes = Router();
 
-userExperienceRoutes.get('/', async (req, res) => {
+userExperienceRoutes.get('/list', async (req, res) => {
     const listMessageService = new ListMessageService();
 
     const messages = await listMessageService.execute();
