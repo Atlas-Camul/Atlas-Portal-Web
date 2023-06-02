@@ -50,25 +50,25 @@ const SignUp = () => {
 
            // Verificar se o campo de retype password é igual ao campo de password
         if (password !== repassword) {
-            alert('As senhas não correspondem.');
+            alert('The passwords do not match.');
             return ;
         }
 
           // Verificar se algum dos campos está vazio
         if (!name || !email || !password || !repassword) {
-            alert('Por favor, preencha todos os campos.');
+            alert('Please fill in all fields.');
             return ;
         }
 
          // Verificar se o campo de email segue a estrutura de email
         const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailPattern.test(email)) {
-            alert('O email inserido não é válido.');
+            alert('The email entered is not valid.');
             return ;
         }
            // Verificar se a senha tem menos de 8 caracteres
         if (password.length < 8) {
-            alert('A senha deve ter no mínimo 8 caracteres.');
+            alert('The password must be at least 8 characters long.');
             return ;
         }
 
