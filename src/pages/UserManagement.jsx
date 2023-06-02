@@ -21,6 +21,11 @@ const Tables = () => {
     const searchUser = (event) => {
         event.preventDefault();
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> 1220ac0541556faea8838247fc3cbf5e58766a18
         const element = {
             name: formData.fullName,
             email: formData.email
@@ -96,6 +101,8 @@ const Tables = () => {
             [event.target.name]: event.target.value
         });
     };
+
+
 
     return (
         <DefaultLayout>

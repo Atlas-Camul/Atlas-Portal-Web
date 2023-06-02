@@ -19,6 +19,7 @@ const SignUp = () => {
             },
             body: JSON.stringify(element)
         })
+<<<<<<< HEAD
             .then(res => {
                 if(res.ok){
                      window.location.href = "/auth/signin";
@@ -28,6 +29,17 @@ const SignUp = () => {
                         window.location.href = "/auth/signin";
                     }
                 }
+=======
+            .then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    alert('erro');
+                    return;
+                }
+
+                window.location.href = "/auth/signin";
+
+>>>>>>> cb88b8eabda128baaa0b5497db09a0bc260a4b5b
             });
     }
     function inputElements() {
@@ -72,7 +84,11 @@ const SignUp = () => {
             alert('A senha deve ter no mínimo 8 caracteres.');
             return ;
         }
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> cb88b8eabda128baaa0b5497db09a0bc260a4b5b
         const element = {
             name: name,
             email: email,

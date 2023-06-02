@@ -1,12 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumb';
 import LogoExtended from '../../images/logo/logo-extended.png'
 import LogoDark from '../../images/logo/logo-dark.svg'
 import { Link } from 'react-router-dom'
 
+
+
+
+
+
+
+
+
 const SignIn = () => {
-  return (
+
+    const [formData, setFormData] = useState({ emailuser:'', passworduser:''});
+    const [jsonData, setJsonData] = useState([]);
+
+    function searchUser(event) {
+
+        event.preventDefault();
+
+        const element = {
+            email: formData.emailuser,
+            password: formData.passworduser
+        };
+
+       // const { emailuser, passworduser } = formData;
+
+     
+        fetch('/auth/signin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(element),
+        }).then((response) => {
+
+            if (response.ok) {
+                // Usuário autenticado com sucesso
+                window.location.href = '/'; // Redirecionar para a página home
+            } else {
+                // Exibir mensagem de erro ao usuário
+                alert('Email or password is incorrect.');
+            }
+        })
+            .catch((error) => {
+                // Lidar com erros de conexão ou outros erros
+                console.error(error);
+                alert('An error occurred. Please try again later.');
+
+            });
+    };
+
+    const handleChange = (event) => {
+        setFormData({
+            ...formData,
+            [event.target.name]: event.target.value
+        });
+    };
+
+    return (
     <main>
       <a href="https://www.isep.ipp.pt/" className='inline-block' target="_blank">
         <img className='text-primary pl-[36px] pt-[18px] ' src={LogoExtended} alt='Logo' />
@@ -25,14 +80,17 @@ const SignIn = () => {
                 <span className='mb-1.5 block font-medium'>Welcome back!</span>
                 <span className='mb-9 block font-medium'>It’s nice to see you again!</span>
 
-                <form>
+                <form onSubmit={searchUser} >
                   <div className='mb-4'>
                     <label className='mb-2.5 block font-medium text-black dark:text-white'>
                       Email
                     </label>
                     <div className='relative'>
                       <input
+                        name= 'emailuser'
                         type='email'
+                        defaultValue={formData.emailuser}
+                        onBlur={handleChange}
                         placeholder='Enter your email'
                         className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                       />
@@ -63,7 +121,10 @@ const SignIn = () => {
                     </label>
                     <div className='relative'>
                       <input
+                        name = 'passworduser'
                         type='password'
+                        defaultValue={formData.passworduser}
+                        onBlur={handleChange}
                         placeholder='Enter your password'
                         className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
                       />
