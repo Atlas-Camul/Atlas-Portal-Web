@@ -19,6 +19,7 @@ beaconManagementRoutes.get('/list', async (req, res) => {
     const beacons = await listBeaconsService.execute();
 
     return res.json(beacons);
+
 });
 
 beaconManagementRoutes.post('/', async (req, res) => {
