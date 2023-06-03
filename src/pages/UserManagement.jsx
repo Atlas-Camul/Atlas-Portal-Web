@@ -14,7 +14,18 @@ const Tables = () => {
     useEffect(() => {
         fetch('/user-management/list')
             .then(res => res.json())
-            .then(data => setJsonData(data));
+            .then(data => {
+                if ('status' in data) {
+                    return;
+                }
+
+                if (Array.isArray(data)) {
+                    setJsonData(data);
+                } else {
+                    setJsonData([data]);
+                }
+               
+            });
     }, []);
 
     //Search one user by Email
