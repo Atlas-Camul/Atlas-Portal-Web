@@ -4,7 +4,10 @@ import { Link } from 'react-router-dom'
 import UserOne from '../images/user/user-01.png'
 
 const DropdownUser = () => {
+
   const [dropdownOpen, setDropdownOpen] = useState(false)
+
+    const user = JSON.parse(localStorage.getItem('user'));
 
   const trigger = useRef(null)
   const dropdown = useRef(null)
@@ -43,12 +46,26 @@ const DropdownUser = () => {
         className='flex items-center gap-4'
         to='#'
       >
-        <span className='sm:hidden xl:block text-black text-right'>
-          <span className='block text-sm font-medium text-black dark:text-white'>
-            Fernando Silva
+
+
+       {user ? ( // Verifica se há um usuário autenticado
+          <span className='sm:hidden xl:block text-black text-right'>
+            <span className='block text-sm font-medium text-black dark:text-white'>
+              {user.email} {/* Exibe o nome do usuário */}
+            </span>
+            <span className='block text-xs dark:text-white'>{user.email}</span> {/* Exibe o email do usuário */}
           </span>
-          <span className='block text-xs dark:text-white'>Admin</span>
-        </span>
+        ) : (
+          <span className='sm:hidden xl:block text-black text-right'>
+            <span className='block text-sm font-medium text-black dark:text-white'>
+              Fernando Silva
+            </span>
+            <span className='block text-xs dark:text-white'>Admin</span>
+          </span>
+        )}
+        
+
+
 
         <span className='h-12 w-12 rounded-full'>
           <img src={UserOne} alt='User' />
