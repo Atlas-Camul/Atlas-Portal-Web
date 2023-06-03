@@ -48,9 +48,7 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
             [event.target.name]: event.target.value
         });
 
-         event.target.setCustomValidity('O input deve ter pelo menos 8 caracteres');
-
-        verifyLabels(event);
+        //verifyLabels(event);
     };
 
     //Deletes the selected user
@@ -106,6 +104,12 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
         } 
        
         setDisableButtonSave(false);
+    };
+
+    const setErrorMessage = (id, message) =>{
+        const errorLabel = document.getElementById(id);
+
+        errorLabel.value = message;
     };
 
     return (
@@ -396,7 +400,7 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
                                                             className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
                                                             id='buttonSave'
                                                             onClick={handleSave}
-                                                            disabled={disableButtonSave}
+                                                            //disabled={disableButtonSave}
                                                         >
                                                             Save
                                                         </button>

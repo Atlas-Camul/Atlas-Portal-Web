@@ -5,6 +5,7 @@ import authConfig from '../../config/auth';
 import { sign } from 'jsonwebtoken';
 import { User } from '../../entities/User';
 import { UpdateSessionService } from './UpdateSessionService';
+import { CreateSessionService } from '../sessionServices/CreateSessionService';
 
 
 interface IResponse{
@@ -28,6 +29,7 @@ class AuthenticateUserService {
         }
 
         const passwordMatch = await compare(password, user.password);
+
         if (!passwordMatch)
         {
             throw new AppError('Incorrect email/password combination', 404);
@@ -42,6 +44,10 @@ class AuthenticateUserService {
         const updateSessionService = new UpdateSessionService();
 
         await updateSessionService.execute(user);
+
+        const createSessionService = new CreateSessionService();
+
+        await createSessionService.execute({ token, userID: user.id });
 
         return { user, token };     
 

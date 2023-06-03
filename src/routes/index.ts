@@ -12,17 +12,17 @@ import ensureAuthenticated from '../middlewares/ensureAuthenticed';
 
 const routes = Router();
 
-//routes.use(ensureAuthenticated);
 
+routes.use('/auth/password-reset', passwordResetRoutes);
+routes.use('/auth/password-reset-email', passwordResetEmailRoutes);
+routes.use('/auth/signin', signinRoutes);
+routes.use('/auth/signup', signupRoutes);
+//routes.use(ensureAuthenticated);
 routes.use('/', homeRoutes);
 routes.use('/user-management', userManagementRoutes);
 routes.use('/beacon-management', beaconManagementRoutes);
 routes.use('/user-experience', userExperienceRoutes);
 routes.use('/settings', settingsRoutes);
-routes.use('/auth/password-reset', passwordResetRoutes);
-routes.use('/auth/password-reset-email', passwordResetEmailRoutes);
-routes.use('/auth/signin', signinRoutes);
-routes.use('/auth/signup', signupRoutes);
 
 
 export {routes};
