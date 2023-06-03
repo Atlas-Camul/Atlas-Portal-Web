@@ -3,9 +3,18 @@ import { ListMessageService } from '../services/messageServices/ListMessagesServ
 import { DeleteMessageService } from '../services/messageServices/DeleteMessageService';
 import { ListMediasService } from '../services/mediaServices/ListMediasService';
 
+
 const userExperienceRoutes = Router();
 
 userExperienceRoutes.get('/list', async (req, res) => {
+
+    const referer = req.headers.referer;
+
+    if (!referer) {
+        throw new AppError("Page not found", 404);
+    }
+
+
     const listMessageService = new ListMessageService();
 
     const messages = await listMessageService.execute();
@@ -14,8 +23,19 @@ userExperienceRoutes.get('/list', async (req, res) => {
 });
 
 userExperienceRoutes.get('/media', async (req, res) => {
-    const { messageID } = req.body;
 
+
+     const queryParams = req.query;
+
+    
+
+     var id = queryParams.id;
+
+         if (typeof id !== 'string') {
+         id = '0';
+
+    }
+    var messageID = Number(id);
     const listMediaService = new ListMediasService();
 
     const medias = await listMediaService.execute(messageID);

@@ -1,14 +1,55 @@
 import React from 'react';
-import { Fragment, useRef, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { Fragment, useRef, useState } from 'react';
+import { Dialog, Transition } from '@headlessui/react';
+import { ExclamationTriangleIcon } from '@heroicons/react/24/outline';
 
-const TableTwo = () => {
 
+const TableTwo = ({jsonData}) => {
+
+  const [mediaData, setMediaData] = useState([]);
   const [open, setOpen] = useState(false)
+  const [messageData, setMessageData] = useState({messageID: ''})
 
-  const cancelButtonRef = useRef(null)
+  const cancelButtonRef = useRef(null);
+//---------------------------------------------------------------------------------------------------------
+ const handleRowClick = (item) =>{
+     messageData.messageID = item.id;
+    };
+ 
 
+
+    //Search medias by messageID
+    const searchMedia = (event) => {
+        event.preventDefault();
+
+        const element = {
+            id: messageData.messageID,
+        };
+
+        const url = new URL('/user-experience/media', 'http://localhost:3000');
+        url.search = new URLSearchParams(element).toString();
+
+        fetch(url)
+            .then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    return;
+                }
+
+                if (Array.isArray(data)) {
+                    setMediaData(data);
+                } else {
+                    setMediaData([data]);
+                }
+            });
+    }
+
+    const handleAttachements = (event, item) =>{
+        handleRowClick(item);
+        searchMedia(event);
+        setOpen(true);
+    };
+//-------------------------------------------------------------------------------------------------------------------
   return (
     <div className='rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark'>
       <div className='py-6 px-4 md:px-6 xl:px-7.5'>
@@ -48,96 +89,41 @@ const TableTwo = () => {
         <div className='col-span-1 flex items-center'>
           <p className='font-medium'>ID</p>
         </div>
-        <div className='col-span-2 hidden items-center sm:flex'>
+        <div className='col-span-2  items-center sm:flex'>
           <p className='font-medium'>Title</p>
         </div>
         <div className='col-span-2 flex items-center'>
           <p className='font-medium'>Message</p>
         </div>
-        {/* <div className='col-span-1 flex items-center'>
-          <p className='font-medium'>Sold</p>
-        </div>
-        <div className='col-span-1 flex items-center'>
-          <p className='font-medium'>Profit</p>
-        </div> */}
       </div>
 
-      <div className='grid grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5'>
-        <div className='col-span-1 flex items-center'>
+      {jsonData.map((item, index) => (
+      <div className='grid grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5'
+        key={index} onClick={() => handleRowClick(item)}>
+      <div className='col-span-1 flex items-center'>
           <div className='flex flex-col gap-4 sm:flex-row sm:items-center'>
-            {/* <div className='h-12.5 w-15 rounded-md'>
-              <img src={ProductOne} alt='Product' />
-            </div> */}
             <p className='text-sm text-black dark:text-white'>
-              #0001
+              {item.id}
             </p>
           </div>
         </div>
-        <div className='col-span-2 hidden items-center sm:flex'>
-          <p className='text-sm text-black dark:text-white'>Nice Design</p>
+        <div className='col-span-2  items-center sm:flex'>
+          <p className='text-sm text-black dark:text-white'>
+          {item.title}
+          </p>
         </div>
-        <div className='col-span-3 flex items-center'>
-          <p className='text-sm text-black dark:text-white'>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae;</p>
+        <div className='col-span-3 flex items-center' >
+          <p className='text-sm text-black dark:text-white'>
+          {item.description}
+          </p>
         </div>
-        <button
+        <button id = 'coluna04'
           type="button"
-          onClick={() => setOpen(true)} className='col-end-9 flex justify-end items-center'>
-          <p className='text-sm text-meta-3'>See attachemnts</p>
-        </button>
-        {/* <div className='col-span-1 flex items-center'>
-          <p className='text-sm text-black dark:text-white'>22</p>
-        </div>
-        <div className='col-span-1 flex items-center'>
-          <p className='text-sm text-meta-3'>$45</p>
-        </div> */}
-      </div>
-      <div className='grid grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5'>
-        <div className='col-span-1 flex items-center'>
-          <div className='flex flex-col gap-4 sm:flex-row sm:items-center'>
-            <p className='text-sm text-black dark:text-white'>#0002</p>
-          </div>
-        </div>
-        <div className='col-span-2 hidden items-center sm:flex'>
-          <p className='text-sm text-black dark:text-white'>Really well thought out</p>
-        </div>
-        <div className='col-span-3 flex items-center'>
-          <p className='text-sm text-black dark:text-white'>In porta, orci eu pellentesque condimentum, ante diam feugiat enim, nec rutrum nibh lacus non lorem. Nam a turpis dolor. Orci varius natoque penatibus et magnis dis parturient montes.</p>
-        </div>
-      </div>
-      <div className='grid grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5'>
-        <div className='col-span-1 flex items-center'>
-          <div className='flex flex-col gap-4 sm:flex-row sm:items-center'>
-            <p className='text-sm text-black dark:text-white'>
-              #0003
-            </p>
-          </div>
-        </div>
-        <div className='col-span-2 hidden items-center sm:flex'>
-          <p className='text-sm text-black dark:text-white'>Very helpful app, thank you!</p>
-        </div>
-        <div className='col-span-3 flex items-center'>
-          <p className='text-sm text-black dark:text-white'>Quisque eu tempor eros. Sed nec ornare urna.</p>
-        </div>
-        <button
-          type="button"
-          onClick={() => setOpen(true)} className='col-end-9 flex justify-end items-center'>
+          onClick={() => handleAttachements(event, item)} className='col-end-9 flex justify-end items-center'>
           <p className='text-sm text-meta-3'>See attachemnts</p>
         </button>
       </div>
-      <div className='grid grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5'>
-        <div className='col-span-1 flex items-center'>
-          <div className='flex flex-col gap-4 sm:flex-row sm:items-center'>
-            <p className='text-sm text-black dark:text-white'>#0004</p>
-          </div>
-        </div>
-        <div className='col-span-2 hidden items-center sm:flex'>
-          <p className='text-sm text-black dark:text-white'>Keep it going!</p>
-        </div>
-        <div className='col-span-3 flex items-center'>
-          <p className='text-sm text-black dark:text-white'>Nam ligula est, hendrerit vitae sem ut, feugiat suscipit purus. Phasellus eget ligula ut augue dignissim varius non ut arcu. Nulla facilisi. Nunc in facilisis orci.</p>
-        </div>
-      </div>
-
+      ))}
 
       <Transition.Root show={open} as={Fragment}>
         <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setOpen}>
@@ -167,15 +153,37 @@ const TableTwo = () => {
                 <Dialog.Panel className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div className="sm:flex sm:items-start">
-                      <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                      <div className="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left" /*className='grid grid-cols-4 border-t border-stroke py-4.5 px-4 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5'*/>
                         <Dialog.Title as="h3" className="text-base font-semibold leading-6 text-gray-900">
-                          This is a example fo the attachements
+                           Attachements
                         </Dialog.Title>
-                        <div className="mt-2">
-                          <p className="text-sm text-gray-500">
-                            You will be able to see photos and other texts here
-                          </p>
+                        <div className="grid grid-cols-2 py-4.5  2xl:px-7.5">
+                            <div className='col-span-1 flex items-center'>
+                                <p className="font-medium">
+                                    Type
+                                </p>
+                            </div>
+                            <div className='col-span-1 flex items-center'>
+                                <p className="font-medium">
+                                     URL
+                                </p>
+                            </div>
                         </div>
+
+                        {mediaData.map((item, index) => (
+                        <div className="grid grid-cols-2 py-4.5  2xl:px-7.5" key={index}>
+                            <div className='col-span-1 flex items-center'>
+                                <p className="text-sm text-gray-500">
+                                    {item.type}
+                                </p>
+                            </div>
+                            <div className='col-span-1 flex items-center'>
+                                <a href = {item.url} className="text-sm text-gray-500" target="_blank">
+                                     {item.url}
+                                </a>
+                            </div>
+                        </div>
+                        ))}
                       </div>
                     </div>
                   </div>
