@@ -12,15 +12,6 @@ class Message {
     description: string;
 
     @Column()
-    latitude: string;
-
-    @Column()
-    longitude: string;
-
-    @Column()
-    zoneID: number;
-
-    @Column()
     userID: number;
 }
 

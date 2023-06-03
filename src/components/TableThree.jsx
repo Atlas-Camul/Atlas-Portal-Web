@@ -8,6 +8,7 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
 
     const [open, setOpen] = useState(false);
     const [userData, setUserData] = useState({fullName: '', emailAddress: '', phoneNumber: '', password: '', lastLogin:''});
+    const [disableButtonSave, setDisableButtonSave] = useState(true);
 
     const cancelButtonRef = useRef(null);
     
@@ -46,6 +47,8 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
             ...userData,
             [event.target.name]: event.target.value
         });
+
+        //verifyLabels(event);
     };
 
     //Deletes the selected user
@@ -84,6 +87,29 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
         const date = new Date(dateString);
 
          return format(date, 'dd-MM-yyyy HH:mm');
+    };
+
+    //Verify Labels
+    const verifyLabels = (label) =>{
+        const buttonSave = document.getElementById('buttonSave');
+
+        if( userData.fullName === '' || userData.fullName.length <=2){
+            setDisableButtonSave(true);
+            return;
+        }
+
+        if(userData.password !== '' && userData.password.length < 8){
+            setDisableButtonSave(true);
+            return;
+        } 
+       
+        setDisableButtonSave(false);
+    };
+
+    const setErrorMessage = (id, message) =>{
+        const errorLabel = document.getElementById(id);
+
+        errorLabel.value = message;
     };
 
     return (
@@ -357,6 +383,7 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
                                                             placeholder='Secret Password'
                                                             defaultValue={userData.password}
                                                             onBlur={handleChange}
+                                                            maxLength={8}
                                                         />
                                                     </div>
 
@@ -371,7 +398,9 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
                                                         </button>
                                                         <button
                                                             className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
+                                                            id='buttonSave'
                                                             onClick={handleSave}
+                                                            //disabled={disableButtonSave}
                                                         >
                                                             Save
                                                         </button>
