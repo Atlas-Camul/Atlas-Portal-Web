@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import LogoIcon from '../images/logo/logo-icon.svg'
 import LogoIconDark from '../images/logo/logo-icon-dark.svg'
@@ -11,6 +11,29 @@ import { Link } from 'react-router-dom'
 const Header = (
   props
 ) => {
+
+     useEffect(() => {
+        fetch('/session')
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if ('status' in data) {
+                    return;
+                }
+
+                if (Array.isArray(data)) {
+                   // setJsonData(data);
+                } else {
+                    //setJsonData([data]);
+                    
+
+                }
+               
+            });
+    }, []);
+
+
+
 
   return (
     <header className='sticky top-0 z-999 flex w-full bg-white drop-shadow-1 dark:bg-boxdark dark:drop-shadow-none'>

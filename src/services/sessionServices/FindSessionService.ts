@@ -24,6 +24,7 @@ class FindSessionService {
         if (!tokenData) {
             throw new AppError('Session not found', 404);
         }
+        console.log('cheguei aqui');
 
         const { token, userID } = tokenData as IRequest;
 
