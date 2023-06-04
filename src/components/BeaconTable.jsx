@@ -6,7 +6,7 @@ import { saveAs } from 'file-saver-es';
 const TableThree = ({jsonData, updateBeacon, deleteBeacon}) => {
 
     const [open, setOpen] = useState(false);
-    const [beaconData, setBeaconData] = useState({ name: '', latitude: '', longitude: '', zoneID: '', macAddress: '' });
+    const [beaconData, setBeaconData] = useState({ name: '', latitude: '', longitude: '', macAddress: '' });
 
     const cancelButtonRef = useRef(null);
 
@@ -15,7 +15,6 @@ const TableThree = ({jsonData, updateBeacon, deleteBeacon}) => {
         beaconData.name = item.name;
         beaconData.latitude = item.latitude;
         beaconData.longitude = item.longitude;
-        beaconData.zoneID = item.zoneID;
         beaconData.macAddress = item.macAddress;
     };
 

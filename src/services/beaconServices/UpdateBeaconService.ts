@@ -6,12 +6,11 @@ interface IRequest {
     name: string,
     latitude: string,
     longitude: string,
-    zoneID: number,
     macAddress: string
 }
 
 class UpdateBeaconService {
-    async execute({ name, latitude, longitude, zoneID, macAddress }: IRequest): Promise<Beacon> {
+    async execute({ name, latitude, longitude, macAddress }: IRequest): Promise<Beacon> {
         const beaconRepository = new BeaconRepository();
 
         const beaconExist = await beaconRepository.findByMacAddress(macAddress);
@@ -23,7 +22,6 @@ class UpdateBeaconService {
         beaconExist.name = name;
         beaconExist.latitude = latitude;
         beaconExist.longitude = longitude;
-        beaconExist.zoneID = zoneID;
 
         const beacon = await beaconRepository.update(beaconExist);
 

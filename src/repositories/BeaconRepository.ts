@@ -5,7 +5,6 @@ interface IBeacon {
     name: string,
     latitude: string,
     longitude: string,
-    zoneID: number,
     macAddress: string
 }
 
@@ -16,9 +15,9 @@ class BeaconRepository {
         this.repository = getRepository(Beacon);
     }
 
-    async create({ name, latitude, longitude, zoneID, macAddress }: IBeacon): Promise<Beacon> {
+    async create({ name, latitude, longitude, macAddress }: IBeacon): Promise<Beacon> {
 
-        const beacon = this.repository.create({ name, latitude, longitude, zoneID, macAddress });
+        const beacon = this.repository.create({ name, latitude, longitude, macAddress });
 
         await this.repository.save(beacon);
 

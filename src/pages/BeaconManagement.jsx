@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 
 const Tables = () => {
     const [jsonData, setJsonData] = useState([]);
-    const [formData, setFormData] = useState({ name: '', latitude: '', longitude: '', zoneID: '', macAddress: '' });
+    const [formData, setFormData] = useState({ name: '', latitude: '', longitude: '', macAddress: '' });
 
 
     //List All Beacons
@@ -55,7 +55,7 @@ const Tables = () => {
                 }
             });
 
-        setFormData({ name: '', latitude: '', longitude: '', zoneID: '', macAdress: '' });
+        setFormData({ name: '', latitude: '', longitude: '', macAdress: '' });
     };
     
     //Update one Beacon

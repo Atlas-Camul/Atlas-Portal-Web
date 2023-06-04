@@ -15,9 +15,6 @@ class Beacon {
     longitude: string;
 
     @Column()
-    zoneID: number;
-
-    @Column()
     macAddress: string;
 }
 

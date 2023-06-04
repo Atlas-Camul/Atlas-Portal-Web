@@ -23,11 +23,11 @@ beaconManagementRoutes.get('/list', async (req, res) => {
 });
 
 beaconManagementRoutes.post('/', async (req, res) => {
-    const { name, latitude, longitude, zoneID, macAddress } = req.body;
+    const { name, latitude, longitude, macAddress } = req.body;
 
     const createBeaconService = new CreateBeaconService();
 
-    const beacon = await createBeaconService.execute({ name, latitude, longitude, zoneID, macAddress });
+    const beacon = await createBeaconService.execute({ name, latitude, longitude, macAddress });
 
     return res.json(beacon);
 })
@@ -37,7 +37,7 @@ beaconManagementRoutes.put('/', async (req, res) => {
 
     const updateBeaconService = new UpdateBeaconService();
 
-    const beacon = await updateBeaconService.execute({ name, latitude, longitude, zoneID, macAddress });
+    const beacon = await updateBeaconService.execute({ name, latitude, longitude, macAddress });
 
     return res.json(beacon);
 });
