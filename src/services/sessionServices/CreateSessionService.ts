@@ -6,7 +6,9 @@ import authConfig from '../../config/auth';
 
 interface IRequest {
     token: string,
-    userID: number
+    userID: number,
+    emailUser: string,
+    nameUser: string
 }
 
 interface ITokenPayLoad {
@@ -16,7 +18,7 @@ interface ITokenPayLoad {
 }
 
 class CreateSessionService {
-    async execute({ token, userID }: IRequest): Promise<Session> {
+    async execute({ token, userID, emailUser, nameUser }: IRequest): Promise<Session> {
         const sessionRepository = new SessionRepository();
 
         const cache = new NodeCache();
@@ -31,14 +33,14 @@ class CreateSessionService {
         const expiryDate = new Date(expiryTime*1000);
 
         //Inserts the data into the browser cache
-        const tokenData = { token, userID };
+        const tokenData = { token, userID, emailUser, nameUser };
 
         cache.set('loginAtlasToken', tokenData, expiryTime);
 
 
         //Inserts the data into the database
         const session = await sessionRepository.create({ token, expiryDate, userID });
-
+        
         return session;
     }
 }

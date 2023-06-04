@@ -7,14 +7,23 @@ interface IRequest {
     userID: number
 }
 
+interface IResponse {
+    session: Session,
+    tokenData: object
+}
+
 class FindSessionService {
-    async execute(): Promise<Session> {
+    async execute(): Promise<IResponse> {
         const sessionRepository = new SessionRepository();
 
         //Checks cached information
         const cache = new NodeCache();
 
         const tokenData = cache.get('loginAtlasToken');
+
+        if (!tokenData) {
+            throw new AppError('Session not found', 404);
+        }
 
         const { token, userID } = tokenData as IRequest;
 
@@ -24,7 +33,8 @@ class FindSessionService {
             throw new AppError('Session not found', 404);
         }
 
-        return session;
+        return { session, tokenData };
+;
     }
 }
 
