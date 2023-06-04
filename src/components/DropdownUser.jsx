@@ -42,27 +42,8 @@ const DropdownUser = ({ jsonData }) => {
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className='flex items-center gap-4'
                 to='#'
-            >
+            >      
 
-
-<<<<<<< HEAD
-       {user ? ( // Verifica se há um usuário autenticado
-          <span className='sm:hidden xl:block text-black text-right'>
-            <span className='block text-sm font-medium text-black dark:text-white'>
-              xxxxxxxxxx
-            </span>
-            <span className='block text-xs dark:text-white'>yyyyyyyyyy</span> {/* Exibe o email do usuário */}
-          </span>
-        ) : (
-          <span className='sm:hidden xl:block text-black text-right'>
-            <span className='block text-sm font-medium text-black dark:text-white'>
-              
-            </span>
-            <span className='block text-xs dark:text-white'></span>
-          </span>
-        )}
-        
-=======
                 {jsonData ? ( // Verifica se há um usuário autenticado
                     <span className='sm:hidden xl:block text-black text-right'>
                         <span className='block text-sm font-medium text-black dark:text-white'>
@@ -82,7 +63,7 @@ const DropdownUser = ({ jsonData }) => {
                         </span>
                     </span>
                 )}
->>>>>>> 3f0ab92fe7599933b38f1798ac16019bba8b0cf0
+
 
 
 
