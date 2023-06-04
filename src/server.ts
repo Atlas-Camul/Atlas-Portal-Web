@@ -6,15 +6,14 @@ import {routes} from './routes';
 import {AppError} from './errors/AppError';
 import './database/index';
 import 'express-async-errors';
+import cookieParser from 'cookie-parser';
 
 const app = express();
 
-//app.get("/message", (_, res) => res.send("Hello from express!"));
+app.use(cookieParser());
 app.use(express.json());
 app.use(routes);
 app.use((err: Error, request: Request, response: Response, _:NextFunction)=>{
-    //console.log(err);
-
     if(err instanceof AppError){
         return response.status(err.statusCode).json({
             status: 'error',

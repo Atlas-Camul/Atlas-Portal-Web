@@ -8,9 +8,13 @@ signinRoutes.post('/', async (req, res) => {
 
     const authenticateUserService = new AuthenticateUserService();
 
-    const session = await  authenticateUserService.execute({ email, password });
+    const sessionData = await  authenticateUserService.execute({ email, password });
 
-    return res.json(session);
+    const { expiryTime, tokenData } = sessionData;
+
+    res.cookie('loginAtlasToken', JSON.stringify(tokenData), { maxAge: expiryTime });
+
+    return res.json(sessionData);
 });
 
 export { signinRoutes };
