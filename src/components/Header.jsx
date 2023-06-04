@@ -16,7 +16,7 @@ const Header = (
         fetch('/session')
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+               
                 if ('status' in data) {
                     return;
                 }

@@ -20,11 +20,11 @@ class FindSessionService {
         const cache = new NodeCache();
 
         const tokenData = cache.get('loginAtlasToken');
-
+         
         if (!tokenData) {
             throw new AppError('Session not found', 404);
         }
-        console.log('cheguei aqui');
+      
 
         const { token, userID } = tokenData as IRequest;
 
