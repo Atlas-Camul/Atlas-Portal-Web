@@ -1,6 +1,6 @@
 import { Session } from '../../entities/Session';
 import { SessionRepository } from '../../repositories/SessionRepository';
-import NodeCache from 'node-cache';
+//import NodeCache from 'node-cache';
 import { verify } from 'jsonwebtoken';
 import authConfig from '../../config/auth';
 
@@ -21,8 +21,6 @@ class CreateSessionService {
     async execute({ token, userID, emailUser, nameUser }: IRequest): Promise<Session> {
         const sessionRepository = new SessionRepository();
 
-        const cache = new NodeCache();
-
         //Decrypts the token and searches for the expiry value
         const decodedToken = verify(token, authConfig.jwt.secret);
 
@@ -35,7 +33,7 @@ class CreateSessionService {
         //Inserts the data into the browser cache
         const tokenData = { token, userID, emailUser, nameUser };
 
-        cache.set('loginAtlasToken', tokenData, expiryTime);
+        localStorage.setItem('loginAtlasToken', JSON.stringify(tokenData));
 
 
         //Inserts the data into the database
