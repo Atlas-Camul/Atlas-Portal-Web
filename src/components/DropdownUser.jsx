@@ -51,16 +51,16 @@ const DropdownUser = () => {
        {user ? ( // Verifica se há um usuário autenticado
           <span className='sm:hidden xl:block text-black text-right'>
             <span className='block text-sm font-medium text-black dark:text-white'>
-              {user.email} {/* Exibe o nome do usuário */}
+              {user.name}
             </span>
             <span className='block text-xs dark:text-white'>{user.email}</span> {/* Exibe o email do usuário */}
           </span>
         ) : (
           <span className='sm:hidden xl:block text-black text-right'>
             <span className='block text-sm font-medium text-black dark:text-white'>
-              Fernando Silva
+              
             </span>
-            <span className='block text-xs dark:text-white'>Admin</span>
+            <span className='block text-xs dark:text-white'></span>
           </span>
         )}
         
