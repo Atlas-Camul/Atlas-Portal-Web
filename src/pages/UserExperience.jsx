@@ -4,6 +4,8 @@ import Breadcrumb from '../components/Breadcrumb';
 import TableTwo from '../components/TableTwo';
 
 const Tables = () => {
+
+
         const [jsonData, setJsonData] = useState([]);
     //List All Users
     useEffect(() => {

@@ -18,7 +18,7 @@ const SignIn = () => {
     const [formData, setFormData] = useState({ emailuser:'', passworduser:''});
     const [jsonData, setJsonData] = useState([]);
 
-    /**/const [user, setUser] = useState(null); // Novo estado para armazenar os dados do usuário autenticado
+   
 
     function searchUser(event) {
 
@@ -42,11 +42,7 @@ const SignIn = () => {
 
             if (response.ok) {
                 // Usuário autenticado com sucesso
-
-          /**/      const user = { name: "FernandoO Silva", email: formData.emailuser };
-          /**/      setUser(user); // Armazene os dados do usuário no estado
-
-
+                   
                 window.location.href = '/'; // Redirecionar para a página home
             } else {
                 // Exibir mensagem de erro ao usuário
