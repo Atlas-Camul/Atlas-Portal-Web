@@ -1,10 +1,58 @@
 //import React from 'react';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import LogoExtended from '../../images/logo/logo-extended.png';
 import { Link } from 'react-router-dom';
 
 
 const SignUp = () => {
+    useEffect(() => {
+        const cookieDataString = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('loginAtlasToken='))
+            ?.split('=')[1];
+
+        if (!cookieDataString) {
+            return;
+        }
+
+        const cookieDecoded = decodeURIComponent(cookieDataString);
+
+        const cookieData = JSON.parse(cookieDecoded);
+
+        const element = {
+            userID: cookieData.userID,
+            token: cookieData.token
+        };
+
+        fetch('/session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    return;
+                }
+
+                const expiryDate = new Date(data.expiryDate);
+                const dateNow = new Date();
+
+
+                if (dateNow.getTime() <= expiryDate.getTime()) {
+                    window.location.href = '/';
+                } else {
+                    return;
+                }
+
+            });
+    }, []);
+
+
+
+
     function submitClient(event) {
         event.preventDefault();
         const element = inputElements();
@@ -183,6 +231,7 @@ const SignUp = () => {
                                             <input
                                                 id='passwordClient'
                                                 type='password'
+                                                maxLength={8}
                                                 name='password'
                                                 placeholder='Enter your password'
                                                 className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'
@@ -220,6 +269,7 @@ const SignUp = () => {
                                             <input
                                                 id= 'repasswordClient'
                                                 type='password'
+                                                maxLength={8}
                                                 name="repassword"
                                                 placeholder='Re-enter your password'
                                                 className='w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:focus:border-primary'

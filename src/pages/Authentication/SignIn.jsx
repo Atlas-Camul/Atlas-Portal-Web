@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DefaultLayout from '../../layout/DefaultLayout';
 import Breadcrumb from '../../components/Breadcrumb';
 import LogoExtended from '../../images/logo/logo-extended.png'
@@ -6,18 +6,54 @@ import LogoDark from '../../images/logo/logo-dark.svg'
 import { Link } from 'react-router-dom'
 
 
-
-
-
-
-
-
-
 const SignIn = () => {
 
     const [formData, setFormData] = useState({ emailuser:'', passworduser:''});
-    const [jsonData, setJsonData] = useState([]);
 
+    useEffect(() => {
+        const cookieDataString = document.cookie
+            .split('; ')
+            .find(row => row.startsWith('loginAtlasToken='))
+            ?.split('=')[1];
+
+        if (!cookieDataString) {
+            return;
+        }
+
+        const cookieDecoded = decodeURIComponent(cookieDataString);
+
+        const cookieData = JSON.parse(cookieDecoded);
+
+        const element = {
+            userID: cookieData.userID,
+            token: cookieData.token
+        };
+
+        fetch('/session', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    return;
+                }
+
+                const expiryDate = new Date(data.expiryDate);
+                const dateNow = new Date();
+
+
+                if (dateNow.getTime() <= expiryDate.getTime()) {
+                    window.location.href = '/';
+                } else {
+                    return;
+                }
+
+            });
+    }, []);
    
 
     function searchUser(event) {

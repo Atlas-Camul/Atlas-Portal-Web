@@ -50,11 +50,12 @@ const Header = (
 
 
                 if (dateNow.getTime() <= expiryDate.getTime()) {
-                    jsonData.nameUser = cookieData.nameUser;
-                    jsonData.emailUser = cookieData.emailUser;
+                    setJsonData({
+                        ...jsonData,
+                        nameUser: cookieData.nameUser, emailUser: cookieData.emailUser
+                    });
                 } else {
-                    console.log('erro de lógica');
-                    //window.location.href = '/auth/signin';
+                    window.location.href = '/auth/signin';
                 }
 
             });
