@@ -6,11 +6,14 @@ import { sign } from 'jsonwebtoken';
 import { User } from '../../entities/User';
 import { UpdateSessionService } from './UpdateSessionService';
 import { CreateSessionService } from '../sessionServices/CreateSessionService';
+import { Session } from '../../entities/Session';
 
 
 interface IResponse{
     user: User;
-    token: string;
+    session: Session,
+    expiryTime: number,
+    tokenData: object
 }
 interface IRequest {
     email: string;
@@ -47,9 +50,11 @@ class AuthenticateUserService {
 
         const createSessionService = new CreateSessionService();
 
-        await createSessionService.execute({ token, userID: user.id, emailUser: user.email, nameUser: user.name });
+        const sessionData = await createSessionService.execute({ token, userID: user.id, emailUser: user.email, nameUser: user.name });
 
-        return { user, token };     
+        const { session, expiryTime, tokenData } = sessionData;
+
+        return { user, session, expiryTime, tokenData };     
 
     }
 }
