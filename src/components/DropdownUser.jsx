@@ -42,8 +42,7 @@ const DropdownUser = ({ jsonData }) => {
                 onClick={() => setDropdownOpen(!dropdownOpen)}
                 className='flex items-center gap-4'
                 to='#'
-            >
-
+            >      
 
                 {jsonData ? ( // Verifica se há um usuário autenticado
                     <span className='sm:hidden xl:block text-black text-right'>
@@ -64,6 +63,7 @@ const DropdownUser = ({ jsonData }) => {
                         </span>
                     </span>
                 )}
+
 
 
 
