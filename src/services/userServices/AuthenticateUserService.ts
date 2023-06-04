@@ -47,7 +47,7 @@ class AuthenticateUserService {
 
         const createSessionService = new CreateSessionService();
 
-        await createSessionService.execute({ token, userID: user.id });
+        await createSessionService.execute({ token, userID: user.id, emailUser: user.email, nameUser: user.name });
 
         return { user, token };     
 
