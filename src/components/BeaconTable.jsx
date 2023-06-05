@@ -294,6 +294,7 @@ const TableThree = ({ jsonData, updateBeacon, deleteBeacon }) => {
                                                                 defaultValue={beaconData.macAddress}
                                                                 onBlur={handleChange}
                                                                 maxLength={17}
+                                                                disabled
                                                             />
                                                         </div>
                                                     </div>

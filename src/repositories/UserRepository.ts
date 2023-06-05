@@ -1,4 +1,4 @@
-import {Repository, getRepository} from 'typeorm';
+import {Repository, getRepository, Like, ILike} from 'typeorm';
 import { User } from '../entities/User';
 
 interface IUser {
@@ -8,6 +8,10 @@ interface IUser {
     lastLogin: Date
 }
 
+interface IFind {
+    name: string,
+    email: string
+}
 class UserRepository {
     private repository: Repository<User>;
 
@@ -38,6 +42,17 @@ class UserRepository {
             });
 
         return user;
+    }
+
+    async findByEmailOrName({ name, email }: IFind): Promise<User[]> {
+        const users = await this.repository.find({
+            where: [
+                { name: Like(name) },
+                { email: Like(email) }
+            ]
+        });
+
+        return users;
     }
 
 

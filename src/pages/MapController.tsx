@@ -86,32 +86,6 @@ const getPointAtMap = (jsonData: object[]) => {
     return element;
 }
 
-//const point1 = new data.Feature(
-//  new data.Point([-8.606777741606898, 41.178510465545905]),
-//  {
-//    name: "Parque Isep",
-//  }
-//);
-//const point2 = new data.Feature(
-//  new data.Point([-8.609154187555822, 41.178978824368066]),
-//  {
-//    name: "Tuna Academica",
-//  }
-//);
-//const point3 = new data.Feature(
-//  new data.Point([-8.606005235934571, 41.17948755383627]),
-//  {
-//    name: "ISEP ACADEMY",
-//  }
-//);
-
-//const point4 = new data.Feature(
-//    new data.Point([-8.60800082854711, 41.17915244604364]),
-//    {
-//        name: "Building F",
-//    }
-//);
-
 function clusterClicked(e: any) {
     console.log("clusterClicked", e);
 }
@@ -360,10 +334,10 @@ function MarkersExample() {
       REMOVE ALL
     </Button> */}
                 <div className="inline-flex rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger">
-                    Active beacons on ISEP: {markers.length}
+                    Beacons on ISEP: {markers.length}
                 </div>
                 <div className="inline-flex rounded-full bg-[#0065af] bg-opacity-10 px-3 py-1 text-sm font-medium text-[#003963] dark:text-[#007bd5]">
-                    Deactivated beacons on ISEP: {dmarkers.length}
+                    Zones on ISEP: {dmarkers.length}
                 </div>
                 {/* <Chip label={`Markers HTML on map: ${htmlMarkers.length}`} /> */}
             </div>

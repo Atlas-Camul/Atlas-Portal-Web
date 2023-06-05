@@ -26,7 +26,16 @@ const TableThree = ({ jsonData, updateUser, deleteUser }) => {
     };
 
     //Action to perform a user's update
-    const handleSave = () => {
+    const handleSave = (event) => {
+        event.preventDefault();
+
+        const verify = verifyLabels();
+
+        if (verify.error) {
+            alert(verify.message);
+            return;
+        }
+
         const element = {
             name: userData.fullName,
             email: userData.emailAddress,
@@ -87,6 +96,26 @@ const TableThree = ({ jsonData, updateUser, deleteUser }) => {
 
         return format(date, 'dd-MM-yyyy HH:mm');
     };
+
+    const verifyLabels = () => {
+        var message = 'The following errors were found: \n';
+        var error = false;
+
+
+        if (userData.fullName === '' || userData.fullName.length <= 5) {
+            message += '#The field NAME cannot be empty or less than 5 characters.\n';
+            error = true;
+        }
+
+        if (userData.password !== '') {
+            if (userData.password.length != 8) {
+                message += '#The PASSWORD must have 8 characters.';
+                error = true;
+            }
+        }
+
+        return { error: error, message: message };
+    }
 
     return (
         <div className='rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1'>

@@ -8,8 +8,8 @@ import { useEffect } from 'react';
 
 const Tables = () => {
     const [jsonData, setJsonData] = useState([]);
-    const [formData, setFormData] = useState({fullName:'', email:''});
-    
+    const [formData, setFormData] = useState({ fullName: '', email: '' });
+
     //List All Users
     useEffect(() => {
         fetch('/user-management/list')
@@ -24,7 +24,7 @@ const Tables = () => {
                 } else {
                     setJsonData([data]);
                 }
-               
+
             });
     }, []);
 
@@ -37,18 +37,24 @@ const Tables = () => {
             email: formData.email
         };
 
-        if ((element.name || element.email) === "") {
+        if (element.name === '' && element.email ==='') {
             alert('Enter a valid value');
             return;
         }
 
-        const url = new URL('/user-management/find', 'http://localhost:3000');
-        url.search = new URLSearchParams(element).toString();
-
-        fetch(url)
+        fetch('/user-management/find', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(element)
+        })
             .then(res => res.json())
             .then(data => {
                 if ('status' in data) {
+                    if (data.message === 'User not found') {
+                        alert('User not found!');
+                    }
                     return;
                 }
 
@@ -57,7 +63,7 @@ const Tables = () => {
                 } else {
                     setJsonData([data]);
                 }
-               
+
             });
 
         setFormData({ fullname: '', email: '' });
@@ -65,40 +71,50 @@ const Tables = () => {
 
     //Update one user
     const updateUser = (element) => {
-        fetch('/user-management',{
+        fetch('/user-management', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(element)
-        });
+        })
+            .then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    alert('Failure to update information!');
+                    return;
+                }
+
+                alert('Information successfully updated!');
+                window.location.reload();
+            });
     };
 
     //Detele one User
-    const deleteUser = (element) =>{
+    const deleteUser = (element) => {
         const result = window.confirm('The data cannot be recovered! Would you like to confirm this action?');
-        
-        if(!result){
+
+        if (!result) {
             return;
         }
 
-        
-         fetch('/user-management',{
+
+        fetch('/user-management', {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(element)
         }).then(res => res.json())
-        .then(data => {
-            if('status' in data){
-                return;
-            }
+            .then(data => {
+                if ('status' in data) {
+                    return;
+                }
 
-            alert('User '+data.name+' deleted');
+                alert('User ' + data.name + ' deleted');
 
-            window.location.reload(true);
-        });
+                window.location.reload(true);
+            });
     };
 
     const handleChange = (event) => {
@@ -166,7 +182,7 @@ const Tables = () => {
                                     <button
                                         className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
                                         type='submit'
-                                        
+
                                     >
                                         Search user
                                     </button>
@@ -175,7 +191,7 @@ const Tables = () => {
                         </div>
                     </div>
                 </div>
-                <TableThree jsonData={jsonData} updateUser={updateUser} deleteUser={deleteUser}/>
+                <TableThree jsonData={jsonData} updateUser={updateUser} deleteUser={deleteUser} />
             </div>
         </DefaultLayout>
     )

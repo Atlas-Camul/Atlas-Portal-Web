@@ -26,8 +26,6 @@ const Tables = () => {
     const addBeacon = (event) => {
         event.preventDefault();
 
-        formData.macAddress = '30:51:EE:CB:5B:52';
-
         const verify = verifyLabels();
 
         if (verify.error) {
@@ -193,20 +191,39 @@ const Tables = () => {
                                     <div className='w-full sm:w-1/2'>
                                         <label
                                             className='mb-3 block text-sm font-medium text-black dark:text-white'
-                                            htmlFor='Localization'
+                                            htmlFor='macAddress'
                                         >
-                                            Localization
+                                            MAC Address
                                         </label>
-                                        <input
-                                            className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
-                                            type='text'
-                                            name='localization'
-                                            id='localization'
-                                            onBlur={handleLocalization}
-                                            placeholder='Localization'
-
-                                        />
+                                        <div className='relative'>
+                                            <input
+                                                className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
+                                                type='text'
+                                                name='macAddress'
+                                                id='macAddress'
+                                                onBlur={handleChange}
+                                                placeholder='MAC Address'
+                                                defaultValue={formData.macAddress}
+                                            />
+                                        </div>
                                     </div>
+                                </div>
+                                <div className='mb-5.5'>
+                                    <label
+                                        className='mb-3 block text-sm font-medium text-black dark:text-white'
+                                        htmlFor='Localization'
+                                    >
+                                        Localization
+                                    </label>
+                                    <input
+                                        className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
+                                        type='text'
+                                        name='localization'
+                                        id='localization'
+                                        onBlur={handleLocalization}
+                                        placeholder='Localization'
+
+                                    />
                                 </div>
                                 <div className='flex justify-end gap-4.5'>
                                     <button
