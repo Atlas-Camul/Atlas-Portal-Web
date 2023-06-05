@@ -1,4 +1,6 @@
 import React, { memo, useMemo, useState, useEffect } from "react";
+import { Beacon } from '../entities/Beacon';
+import { Zone } from '../entities/Zone';
 import {
     AzureMap,
     AzureMapDataSourceProvider,
@@ -21,11 +23,10 @@ import {
     SymbolLayerOptions,
 } from "azure-maps-control";
 
-interface IBeacon {
+interface IResponse {
     name: string,
     latitude: string,
     longitude: string,
-    macAddress: string
 }
 
 
@@ -69,15 +70,15 @@ const controls: IAzureMapControls[] = [
     },
 ];
 
-const getBeacons = (jsonData: object[]) => {
+const getPointAtMap = (jsonData: object[]) => {
     const element: data.Feature<data.Point, { name: string; }>[] = [];
     jsonData.map((item, index) => {
-        const beacon = item as IBeacon;
+        const res = item as IResponse;
 
-        const point = new data.Point([Number(beacon.latitude), Number(beacon.longitude)]);
+        const point = new data.Point([Number(res.latitude), Number(res.longitude)]);
 
         const feature = new data.Feature(
-            point, { name: beacon.name }
+            point, { name: res.name }
         )
 
         element.push(feature);
@@ -104,12 +105,12 @@ const getBeacons = (jsonData: object[]) => {
 //  }
 //);
 
-const point4 = new data.Feature(
-    new data.Point([-8.60800082854711, 41.17915244604364]),
-    {
-        name: "Building F",
-    }
-);
+//const point4 = new data.Feature(
+//    new data.Point([-8.60800082854711, 41.17915244604364]),
+//    {
+//        name: "Building F",
+//    }
+//);
 
 function clusterClicked(e: any) {
     console.log("clusterClicked", e);
@@ -207,8 +208,8 @@ const rand = () =>
     ];
 
 function MarkersExample() {
-    const [jsonData, setJsonData] = useState<object[]>([]);
-    //var jsonData: object[] = [];
+    const [beaconData, setBeaconData] = useState<object[]>([]);
+    const [zoneData, setZoneData] = useState<object[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -220,10 +221,20 @@ function MarkersExample() {
                     return;
                 }
 
-                if (Array.isArray(data)) {
-                    setJsonData(data);
+                const { zones, beacons } = data;
+
+                //Set beaconData
+                if (Array.isArray(beacons)) {
+                    setBeaconData(beacons);
                 } else {
-                    setJsonData([data]);
+                    setBeaconData([beacons]);
+                }
+
+                //Set zoneData
+                if (Array.isArray(zones)) {
+                    setZoneData(zones);
+                } else {
+                    setZoneData([zones]);
                 }
             } catch (error) {
                 console.log(error);
@@ -233,9 +244,9 @@ function MarkersExample() {
         fetchData();
     }, []);
 
-    var markers = getBeacons(jsonData);
+    var markers = getPointAtMap(beaconData);
 
-    var dmarkers = [point4];
+    var dmarkers = getPointAtMap(zoneData);
 
     const [markersDLayer] = useState<IAzureMapLayerType>("SymbolLayer");
     const [layerOptionsD, setLayerOptionsD] = useState<SymbolLayerOptions>(memoizedOptionsD);
