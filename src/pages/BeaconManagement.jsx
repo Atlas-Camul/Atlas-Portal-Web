@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
-import DefaultLayout from '../layout/DefaultLayout';
-import Breadcrumb from '../components/Breadcrumb';
+import React, { useEffect, useState } from 'react';
 import BeaconTable from '../components/BeaconTable';
-import { useEffect } from 'react';
+import Breadcrumb from '../components/Breadcrumb';
+import DefaultLayout from '../layout/DefaultLayout';
 
 
 const Tables = () => {
@@ -29,12 +28,17 @@ const Tables = () => {
 
         const element = {
             name: formData.name,
+            //latitude: '0',
+            //longitude:'0',
+            //macAddress: '0'
+
         };
 
         if ((element.name || element.location) === "") {
             alert('Enter a valid value');
             return;
         }
+
 
         fetch('/beacon-management', {
             method: 'POST',
@@ -125,12 +129,12 @@ const Tables = () => {
                             </h3>
                         </div>
                         <div className='p-7'>
-                            <form>
+                            <form onSubmit={addBeacon}>
                                 <div className='mb-5.5 flex flex-col gap-5.5 sm:flex-row'>
                                     <div className='w-full sm:w-1/2'>
                                         <label
                                             className='mb-3 block text-sm font-medium text-black dark:text-white'
-                                            htmlFor='fullName'
+                                            htmlFor='name'
                                         >
                                             Name
                                         </label>
@@ -139,7 +143,7 @@ const Tables = () => {
                                                 className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
                                                 type='text'
                                                 name='name'
-                                                id='fullName'
+                                                id='name'
                                                 onBlur={handleChange}
                                                 placeholder='Name'
                                                 defaultValue={formData.name}
@@ -161,7 +165,7 @@ const Tables = () => {
                                             id='localization'
                                             onChange={handleChange}
                                             placeholder='Localization'
-                                            disabled
+                                            
                                         />
                                     </div>
                                 </div>
