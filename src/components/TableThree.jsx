@@ -1,19 +1,18 @@
 import React from 'react';
 import { Fragment, useRef, useState } from 'react';
 import { Dialog, Transition } from '@headlessui/react';
-import {saveAs} from 'file-saver-es';
+import { saveAs } from 'file-saver-es';
 import { format } from 'date-fns';
 
-const TableThree = ({jsonData, updateUser, deleteUser}) => {
+const TableThree = ({ jsonData, updateUser, deleteUser }) => {
 
     const [open, setOpen] = useState(false);
-    const [userData, setUserData] = useState({fullName: '', emailAddress: '', phoneNumber: '', password: '', lastLogin:''});
-    const [disableButtonSave, setDisableButtonSave] = useState(true);
+    const [userData, setUserData] = useState({ fullName: '', emailAddress: '', phoneNumber: '', password: '', lastLogin: '' });
 
     const cancelButtonRef = useRef(null);
-    
+
     //Selects the current row and inserts its data in the variable userData
-    const handleRowClick = (item) =>{
+    const handleRowClick = (item) => {
         userData.fullName = item.name;
         userData.emailAddress = item.email;
         userData.phoneNumber = item.phone;
@@ -21,13 +20,13 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
     };
 
     //Action when cancelling the update window
-    const handleCancell = (event) =>{
+    const handleCancell = (event) => {
         event.preventDefault();
         setOpen(false);
     };
 
     //Action to perform a user's update
-    const handleSave = () =>{
+    const handleSave = () => {
         const element = {
             name: userData.fullName,
             email: userData.emailAddress,
@@ -35,7 +34,7 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
             password: userData.password
         };
 
-        if(updateUser){
+        if (updateUser) {
             updateUser(element);
         }
         setOpen(false);
@@ -52,14 +51,14 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
     };
 
     //Deletes the selected user
-    const handleDelete = (item) =>{
+    const handleDelete = (item) => {
         handleRowClick(item);
 
         const element = {
             email: userData.emailAddress
         }
 
-        if(deleteUser){
+        if (deleteUser) {
             deleteUser(element);
         }
     };
@@ -80,36 +79,13 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
 
     //Convert DateTime to Format dd-mm-aaaa HH:mm
     const convertDate = (dateString) => {
-        if(!dateString){
+        if (!dateString) {
             return dateString;
         }
 
         const date = new Date(dateString);
 
-         return format(date, 'dd-MM-yyyy HH:mm');
-    };
-
-    //Verify Labels
-    const verifyLabels = (label) =>{
-        const buttonSave = document.getElementById('buttonSave');
-
-        if( userData.fullName === '' || userData.fullName.length <=2){
-            setDisableButtonSave(true);
-            return;
-        }
-
-        if(userData.password !== '' && userData.password.length < 8){
-            setDisableButtonSave(true);
-            return;
-        } 
-       
-        setDisableButtonSave(false);
-    };
-
-    const setErrorMessage = (id, message) =>{
-        const errorLabel = document.getElementById(id);
-
-        errorLabel.value = message;
+        return format(date, 'dd-MM-yyyy HH:mm');
     };
 
     return (
@@ -167,7 +143,7 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
                                                 />
                                             </svg>
                                         </button>
-                                        <button className='hover:text-primary' id='deleteUserButton' onClick={()=>handleDelete(item)}>
+                                        <button className='hover:text-primary' id='deleteUserButton' onClick={() => handleDelete(item)}>
                                             <svg
                                                 className='fill-current'
                                                 width='18'
@@ -194,7 +170,7 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
                                                 />
                                             </svg>
                                         </button>
-                                        <button className='hover:text-primary' id='exportDataButton' onClick={()=>handleExportCSV(item)}>
+                                        <button className='hover:text-primary' id='exportDataButton' onClick={() => handleExportCSV(item)}>
                                             <svg
                                                 className='fill-current'
                                                 width='18'
@@ -400,7 +376,6 @@ const TableThree = ({jsonData, updateUser, deleteUser}) => {
                                                             className='flex justify-center rounded bg-primary py-2 px-6 font-medium text-gray hover:shadow-1'
                                                             id='buttonSave'
                                                             onClick={handleSave}
-                                                            //disabled={disableButtonSave}
                                                         >
                                                             Save
                                                         </button>

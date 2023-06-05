@@ -26,19 +26,21 @@ const Tables = () => {
     const addBeacon = (event) => {
         event.preventDefault();
 
-        const element = {
-            name: formData.name,
-            //latitude: '0',
-            //longitude:'0',
-            //macAddress: '0'
+        formData.macAddress = '30:51:EE:CB:5B:52';
 
-        };
+        const verify = verifyLabels();
 
-        if ((element.name || element.location) === "") {
-            alert('Enter a valid value');
+        if (verify.error) {
+            alert(verify.message);
             return;
         }
 
+        const element = {
+            name: formData.name,
+            latitude: formData.latitude,
+            longitude: formData.longitude,
+            macAddress: formData.macAddress
+        };
 
         fetch('/beacon-management', {
             method: 'POST',
@@ -51,17 +53,16 @@ const Tables = () => {
 
                 if ('status' in data) {
                     return;
-
-
-                    alert('Beacon ' + data.name + ' added');
-
-                    window.location.reload(true);
                 }
+
+                alert('Beacon ' + data.name + ' added');
+
+                window.location.reload(true);
             });
 
         setFormData({ name: '', latitude: '', longitude: '', macAdress: '' });
     };
-    
+
     //Update one Beacon
     const updateBeacon = (element) => {
         fetch('/beacon-management', {
@@ -70,7 +71,16 @@ const Tables = () => {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(element)
-        });
+        })
+            .then(res => res.json())
+            .then(data => {
+                if ('status' in data) {
+                    alert('Failure to update information!')
+                }
+
+                alert('Information successfully updated!');
+                window.location.reload();
+            });
     };
 
     //Detele one Beacon
@@ -96,7 +106,7 @@ const Tables = () => {
 
                 alert('Beacon ' + data.name + ' deleted');
 
-                window.location.reload(true);
+                window.location.reload();
             });
     };
 
@@ -108,14 +118,43 @@ const Tables = () => {
     };
 
     const handleLocalization = (event) => {
-        const localization = event.target.value;
-        const local = Object.values(localization).join(',');
+        var localization = event.target.value;
 
-        formData.latitude = local[0];
-        formData.longitude = local[1];
+        if (localization === '') {
+            return;
+        }
+
+        localization = localization.replace(/[^0-9.,\s-]/g, "");
+
+        const [ longitude, latitude ] = localization.split(',');
+
+        formData.latitude = latitude.trim();
+        formData.longitude = longitude.trim();
     }
 
 
+    const verifyLabels = () => {
+        var message = 'The following errors were found: \n';
+        var error = false;
+
+
+        if (formData.name === '' || formData.name.length <= 3) {
+            message += '#The field NAME cannot be empty or less than 3 characters.\n';
+            error = true;
+        }
+
+        if ((formData.latitude || formData.longitude) === '') {
+            message += '#Latitude and longitude coordinates cannot be empty.\n';
+            error = true;
+        }
+
+        if (formData.macAddress === '') {
+            message += '#MAC address cannot be empty.';
+            error = true;
+        }
+
+        return { error: error, message: message };
+    }
 
     return (
         <DefaultLayout>
@@ -156,16 +195,16 @@ const Tables = () => {
                                             className='mb-3 block text-sm font-medium text-black dark:text-white'
                                             htmlFor='Localization'
                                         >
-                                            Loacalization
+                                            Localization
                                         </label>
                                         <input
                                             className='w-full rounded border border-stroke bg-gray py-3 px-4.5 text-black focus:border-primary focus-visible:outline-none dark:border-strokedark dark:bg-meta-4 dark:text-white dark:focus:border-primary'
                                             type='text'
                                             name='localization'
                                             id='localization'
-                                            onChange={handleChange}
+                                            onBlur={handleLocalization}
                                             placeholder='Localization'
-                                            
+
                                         />
                                     </div>
                                 </div>

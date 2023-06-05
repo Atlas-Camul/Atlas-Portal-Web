@@ -33,7 +33,7 @@ beaconManagementRoutes.post('/', async (req, res) => {
 })
 
 beaconManagementRoutes.put('/', async (req, res) => {
-    const { name, latitude, longitude, zoneID, macAddress } = req.body;
+    const { name, latitude, longitude, macAddress } = req.body;
 
     const updateBeaconService = new UpdateBeaconService();
 
