@@ -22,6 +22,15 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const react_1 = __importStar(require("react"));
 const react_azure_maps_1 = require("react-azure-maps");
@@ -65,18 +74,16 @@ const controls = [
         options: { position: "bottom-left" },
     },
 ];
-const point1 = new azure_maps_control_1.data.Feature(new azure_maps_control_1.data.Point([-8.606777741606898, 41.178510465545905]), {
-    name: "Parque Isep",
-});
-const point2 = new azure_maps_control_1.data.Feature(new azure_maps_control_1.data.Point([-8.609154187555822, 41.178978824368066]), {
-    name: "Tuna Academica",
-});
-const point3 = new azure_maps_control_1.data.Feature(new azure_maps_control_1.data.Point([-8.606005235934571, 41.17948755383627]), {
-    name: "ISEP ACADEMY",
-});
-const point4 = new azure_maps_control_1.data.Feature(new azure_maps_control_1.data.Point([-8.60800082854711, 41.17915244604364]), {
-    name: "Building F",
-});
+const getPointAtMap = (jsonData) => {
+    const element = [];
+    jsonData.map((item, index) => {
+        const res = item;
+        const point = new azure_maps_control_1.data.Point([Number(res.latitude), Number(res.longitude)]);
+        const feature = new azure_maps_control_1.data.Feature(point, { name: res.name });
+        element.push(feature);
+    });
+    return element;
+};
 function clusterClicked(e) {
     console.log("clusterClicked", e);
 }
@@ -111,12 +118,12 @@ const eventToMarker = [
 ];
 const renderPoint = (coordinates, title) => {
     const rendId = Math.random();
-    return (<react_azure_maps_1.AzureMapFeature key={rendId} id={rendId.toString()} type="Point" coordinate={coordinates.coordinates} properties={{
+    return (react_1.default.createElement(react_azure_maps_1.AzureMapFeature, { key: rendId, id: rendId.toString(), type: "Point", coordinate: coordinates.coordinates, properties: {
             title: title,
             // icon: markersStandardImages[
             //   Math.floor(Math.random() * markersStandardImages.length)
             // ],
-        }}/>);
+        } }));
 };
 // function renderHTMLPoint(coordinates: data.Position): any {
 //   const rendId = Math.random();
@@ -146,9 +153,41 @@ const markersStandardImages = [
     `pin-round-red`,
 ];
 const rand = () => markersStandardImages[Math.floor(Math.random() * markersStandardImages.length)];
-const MarkersExample = () => {
-    const [markers, setMarkers] = (0, react_1.useState)([point1, point2, point3]);
-    const [dmarkers, setDMarkers] = (0, react_1.useState)([point4]);
+function MarkersExample() {
+    const [beaconData, setBeaconData] = (0, react_1.useState)([]);
+    const [zoneData, setZoneData] = (0, react_1.useState)([]);
+    (0, react_1.useEffect)(() => {
+        const fetchData = () => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const response = yield fetch('/map');
+                const data = yield response.json();
+                if ('status' in data) {
+                    return;
+                }
+                const { zones, beacons } = data;
+                //Set beaconData
+                if (Array.isArray(beacons)) {
+                    setBeaconData(beacons);
+                }
+                else {
+                    setBeaconData([beacons]);
+                }
+                //Set zoneData
+                if (Array.isArray(zones)) {
+                    setZoneData(zones);
+                }
+                else {
+                    setZoneData([zones]);
+                }
+            }
+            catch (error) {
+                console.log(error);
+            }
+        });
+        fetchData();
+    }, []);
+    var markers = getPointAtMap(beaconData);
+    var dmarkers = getPointAtMap(zoneData);
     const [markersDLayer] = (0, react_1.useState)("SymbolLayer");
     const [layerOptionsD, setLayerOptionsD] = (0, react_1.useState)(memoizedOptionsD);
     const [markersLayer] = (0, react_1.useState)("SymbolLayer");
@@ -180,120 +219,52 @@ const MarkersExample = () => {
     //   setMarkers([]);
     //   setHtmlMarkers([]);
     // };
-    const memoizedMarkerRender = (0, react_1.useMemo)(() => markers.map((marker) => { var _a; return renderPoint(marker.geometry, (_a = marker.properties) === null || _a === void 0 ? void 0 : _a.name); }), [markers]);
-    const memoizedDMarkerRender = (0, react_1.useMemo)(() => dmarkers.map((marker) => { var _a; return renderPoint(marker.geometry, (_a = marker.properties) === null || _a === void 0 ? void 0 : _a.name); }), [dmarkers]);
+    const memoizedMarkerRender = (0, react_1.useMemo)(() => markers.map((marker) => renderPoint(marker.geometry, (marker.properties != undefined) ? marker.properties.name : '')), [markers]);
+    const memoizedDMarkerRender = (0, react_1.useMemo)(() => dmarkers.map((marker) => renderPoint(marker.geometry, (marker.properties != undefined) ? marker.properties.name : '')), [dmarkers]);
     // const memoizedHtmlMarkerRender: IAzureDataSourceChildren = useMemo(
     //   (): any => htmlMarkers.map((marker) => renderHTMLPoint(marker)),
     //   [htmlMarkers]
     // );
-    return (<>
-      <div style={styles.buttonContainer}>
-        {/* <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={addRandomMarker}
-        >
-          {" "}
-          MARKER POINT
-        </Button> */}
-        {/* <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={addRandomHTMLMarker}
-        >
-          {" "}
-          HTML MARKER
-        </Button> */}
-        {/* <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={() =>
-            setLayerOptions({
-              textOptions: {
-                color: colorValue(),
-                size: 16,
-              },
-            })
-          }
-        >
-          {" "}
-          Text Options
-        </Button> */}
-        {/* <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={() =>
-            setLayerOptions({
-              iconOptions: {
-                image: rand(),
-              },
-            })
-          }
-        >
-          {" "}
-          ICON OPTIONS
-        </Button> */}
-        {/* <Button
-          size="small"
-          variant="contained"
-          color="primary"
-          onClick={removeAllMarkers}
-        >
-          {" "}
-          REMOVE ALL
-        </Button> */}
-        <div className="inline-flex rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger">
-          Active beacons on ISEP: {markers.length}
-        </div>
-        <div className="inline-flex rounded-full bg-[#0065af] bg-opacity-10 px-3 py-1 text-sm font-medium text-[#003963] dark:text-[#007bd5]">
-          Deactivated beacons on ISEP: {dmarkers.length}
-        </div>
-        {/* <Chip label={`Markers HTML on map: ${htmlMarkers.length}`} /> */}
-      </div>
-      <react_azure_maps_1.AzureMapsProvider>
-        <div style={styles.map}>
-          <react_azure_maps_1.AzureMap options={option} controls={controls}>
-            <react_azure_maps_1.AzureMapDataSourceProvider events={{
-            dataadded: (e) => {
-                console.log("Data on source added", e);
-            },
-        }} id={"markersExample AzureMapDataSourceProvider"}>
-              <react_azure_maps_1.AzureMapLayerProvider id={"markersExample AzureMapLayerProvider"} options={layerOptions} events={{
-            click: clusterClicked,
-            dbclick: clusterClicked,
-        }} lifecycleEvents={{
-            layeradded: () => {
-                console.log("LAYER ADDED TO MAP");
-            },
-        }} type={markersLayer}/>
-              {memoizedMarkerRender}
-            </react_azure_maps_1.AzureMapDataSourceProvider>
-
-            <react_azure_maps_1.AzureMapDataSourceProvider events={{
-            dataadded: (e) => {
-                console.log("Data on source added", e);
-            },
-        }} id={"markersExample AzureMapDataSourceProvider2"}>
-              <react_azure_maps_1.AzureMapLayerProvider id={"markersExample AzureMapLayerProvider2"} options={layerOptionsD} events={{
-            click: clusterClicked,
-            dbclick: clusterClicked,
-        }} lifecycleEvents={{
-            layeradded: () => {
-                console.log("LAYER ADDED TO MAP");
-            },
-        }} type={markersDLayer}/>
-              {memoizedDMarkerRender}
-              {/* {memoizedHtmlMarkerRender} */}
-            </react_azure_maps_1.AzureMapDataSourceProvider>
-          </react_azure_maps_1.AzureMap>
-        </div>
-      </react_azure_maps_1.AzureMapsProvider>
-    </>);
-};
+    return (react_1.default.createElement(react_1.default.Fragment, null,
+        react_1.default.createElement("div", { style: styles.buttonContainer },
+            react_1.default.createElement("div", { className: "inline-flex rounded-full bg-danger bg-opacity-10 px-3 py-1 text-sm font-medium text-danger" },
+                "Beacons on ISEP: ",
+                markers.length),
+            react_1.default.createElement("div", { className: "inline-flex rounded-full bg-[#0065af] bg-opacity-10 px-3 py-1 text-sm font-medium text-[#003963] dark:text-[#007bd5]" },
+                "Zones on ISEP: ",
+                dmarkers.length)),
+        react_1.default.createElement(react_azure_maps_1.AzureMapsProvider, null,
+            react_1.default.createElement("div", { style: styles.map },
+                react_1.default.createElement(react_azure_maps_1.AzureMap, { options: option, controls: controls },
+                    react_1.default.createElement(react_azure_maps_1.AzureMapDataSourceProvider, { events: {
+                            dataadded: (e) => {
+                                console.log("Data on source added", e);
+                            },
+                        }, id: "markersExample AzureMapDataSourceProvider" },
+                        react_1.default.createElement(react_azure_maps_1.AzureMapLayerProvider, { id: "markersExample AzureMapLayerProvider", options: layerOptions, events: {
+                                click: clusterClicked,
+                                dbclick: clusterClicked,
+                            }, lifecycleEvents: {
+                                layeradded: () => {
+                                    console.log("LAYER ADDED TO MAP");
+                                },
+                            }, type: markersLayer }),
+                        memoizedMarkerRender),
+                    react_1.default.createElement(react_azure_maps_1.AzureMapDataSourceProvider, { events: {
+                            dataadded: (e) => {
+                                console.log("Data on source added", e);
+                            },
+                        }, id: "markersExample AzureMapDataSourceProvider2" },
+                        react_1.default.createElement(react_azure_maps_1.AzureMapLayerProvider, { id: "markersExample AzureMapLayerProvider2", options: layerOptionsD, events: {
+                                click: clusterClicked,
+                                dbclick: clusterClicked,
+                            }, lifecycleEvents: {
+                                layeradded: () => {
+                                    console.log("LAYER ADDED TO MAP");
+                                },
+                            }, type: markersDLayer }),
+                        memoizedDMarkerRender))))));
+}
 const styles = {
     map: {
         height: 700,

@@ -9,56 +9,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRepository = void 0;
+exports.BeaconRepository = void 0;
 const typeorm_1 = require("typeorm");
-const User_1 = require("../entities/User");
-class UserRepository {
+const Beacon_1 = require("../entities/Beacon");
+class BeaconRepository {
     constructor() {
-        this.repository = (0, typeorm_1.getRepository)(User_1.User);
+        this.repository = (0, typeorm_1.getRepository)(Beacon_1.Beacon);
     }
-    create({ name, email, password, lastLogin }) {
+    create({ name, latitude, longitude, macAddress }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = this.repository.create({ name, email, password, lastLogin });
-            yield this.repository.save(user);
-            return user;
+            const beacon = this.repository.create({ name, latitude, longitude, macAddress });
+            yield this.repository.save(beacon);
+            return beacon;
         });
     }
-    delete(user) {
+    delete(beacon) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userExit = yield this.repository.remove(user);
-            return userExit;
+            const beaconExit = yield this.repository.remove(beacon);
+            return beaconExit;
         });
     }
-    findByEmail(email) {
+    findByMacAddress(macAddress) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.repository.findOne({
-                where: [{ email }]
+            const beacon = yield this.repository.findOne({
+                where: { macAddress }
             });
-            return user;
-        });
-    }
-    findByEmailOrName({ name, email }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const users = yield this.repository.find({
-                where: [
-                    { name: (0, typeorm_1.Like)(name) },
-                    { email: (0, typeorm_1.Like)(email) }
-                ]
-            });
-            return users;
+            return beacon;
         });
     }
     listAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.repository.find();
-            return user;
+            const beacons = yield this.repository.find();
+            return beacons;
         });
     }
-    update(user) {
+    update(beacon) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userExit = yield this.repository.save(user);
-            return userExit;
+            const beaconExit = yield this.repository.save(beacon);
+            return beaconExit;
         });
     }
 }
-exports.UserRepository = UserRepository;
+exports.BeaconRepository = BeaconRepository;

@@ -9,56 +9,47 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRepository = void 0;
+exports.RestrictionRepository = void 0;
 const typeorm_1 = require("typeorm");
-const User_1 = require("../entities/User");
-class UserRepository {
+const Restriction_1 = require("../entities/Restriction");
+class RestrictionRepository {
     constructor() {
-        this.repository = (0, typeorm_1.getRepository)(User_1.User);
+        this.repository = (0, typeorm_1.getRepository)(Restriction_1.Restriction);
     }
-    create({ name, email, password, lastLogin }) {
+    create({ name, type, latitude, longitude, zoneID }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = this.repository.create({ name, email, password, lastLogin });
-            yield this.repository.save(user);
-            return user;
+            const restriction = this.repository.create({ name, type, latitude, longitude, zoneID });
+            yield this.repository.save(restriction);
+            return restriction;
         });
     }
-    delete(user) {
+    delete(restriction) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userExit = yield this.repository.remove(user);
-            return userExit;
+            const restrictionExit = yield this.repository.remove(restriction);
+            return restrictionExit;
         });
     }
-    findByEmail(email) {
+    findRestrictionById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.repository.findOne({
-                where: [{ email }]
+            const restriction = yield this.repository.findOne({
+                where: { id }
             });
-            return user;
+            return restriction;
         });
     }
-    findByEmailOrName({ name, email }) {
+    listByZone(zoneID) {
         return __awaiter(this, void 0, void 0, function* () {
-            const users = yield this.repository.find({
-                where: [
-                    { name: (0, typeorm_1.Like)(name) },
-                    { email: (0, typeorm_1.Like)(email) }
-                ]
+            const restrictions = yield this.repository.find({
+                where: { zoneID }
             });
-            return users;
+            return restrictions;
         });
     }
-    listAll() {
+    update(restriction) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.repository.find();
-            return user;
-        });
-    }
-    update(user) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const userExit = yield this.repository.save(user);
-            return userExit;
+            const restrictionExit = yield this.repository.save(restriction);
+            return restrictionExit;
         });
     }
 }
-exports.UserRepository = UserRepository;
+exports.RestrictionRepository = RestrictionRepository;

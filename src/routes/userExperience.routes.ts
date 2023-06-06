@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { ListMessageService } from '../services/messageServices/ListMessagesService';
 import { DeleteMessageService } from '../services/messageServices/DeleteMessageService';
 import { ListMediasService } from '../services/mediaServices/ListMediasService';
+import { AppError } from '../errors/AppError';
 
 
 const userExperienceRoutes = Router();

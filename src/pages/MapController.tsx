@@ -257,13 +257,20 @@ function MarkersExample() {
     //   setHtmlMarkers([]);
     // };
     const memoizedMarkerRender: IAzureDataSourceChildren = useMemo(
-        (): any => markers.map((marker) => renderPoint(marker.geometry, marker.properties?.name)
+        (): any => markers.map((marker) =>
+            renderPoint(
+                marker.geometry,
+                (marker.properties != undefined) ? marker.properties.name : ''
+            )
         ),
         [markers]
     );
 
     const memoizedDMarkerRender: IAzureDataSourceChildren = useMemo(
-        (): any => dmarkers.map((marker) => renderPoint(marker.geometry, marker.properties?.name)
+        (): any => dmarkers.map((marker) => renderPoint(
+            marker.geometry,
+            (marker.properties != undefined) ? marker.properties.name : ''
+        )
         ),
         [dmarkers]
     );

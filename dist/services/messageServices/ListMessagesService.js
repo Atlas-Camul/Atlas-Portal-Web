@@ -9,16 +9,15 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.signinRoutes = void 0;
-const express_1 = require("express");
-const AuthenticateUserService_1 = require("../services/userServices/AuthenticateUserService");
-const signinRoutes = (0, express_1.Router)();
-exports.signinRoutes = signinRoutes;
-signinRoutes.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { email, password } = req.body;
-    const authenticateUserService = new AuthenticateUserService_1.AuthenticateUserService();
-    const sessionData = yield authenticateUserService.execute({ email, password });
-    const { expiryTime, tokenData } = sessionData;
-    res.cookie('loginAtlasToken', JSON.stringify(tokenData), { maxAge: expiryTime });
-    return res.json(sessionData);
-}));
+exports.ListMessageService = void 0;
+const MessageRepository_1 = require("../../repositories/MessageRepository");
+class ListMessageService {
+    execute() {
+        return __awaiter(this, void 0, void 0, function* () {
+            const messageRepository = new MessageRepository_1.MessageRepository();
+            const messages = yield messageRepository.listAll();
+            return messages;
+        });
+    }
+}
+exports.ListMessageService = ListMessageService;

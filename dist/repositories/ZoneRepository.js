@@ -9,56 +9,45 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserRepository = void 0;
+exports.ZoneRepository = void 0;
 const typeorm_1 = require("typeorm");
-const User_1 = require("../entities/User");
-class UserRepository {
+const Zone_1 = require("../entities/Zone");
+class ZoneRepository {
     constructor() {
-        this.repository = (0, typeorm_1.getRepository)(User_1.User);
+        this.repository = (0, typeorm_1.getRepository)(Zone_1.Zone);
     }
-    create({ name, email, password, lastLogin }) {
+    create({ name, type, latitude, longitude }) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = this.repository.create({ name, email, password, lastLogin });
-            yield this.repository.save(user);
-            return user;
+            const zone = this.repository.create({ name, type, latitude, longitude });
+            yield this.repository.save(zone);
+            return zone;
         });
     }
-    delete(user) {
+    delete(zone) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userExit = yield this.repository.remove(user);
-            return userExit;
+            const zoneExit = yield this.repository.remove(zone);
+            return zoneExit;
         });
     }
-    findByEmail(email) {
+    findById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.repository.findOne({
-                where: [{ email }]
+            const zone = yield this.repository.findOne({
+                where: { id }
             });
-            return user;
-        });
-    }
-    findByEmailOrName({ name, email }) {
-        return __awaiter(this, void 0, void 0, function* () {
-            const users = yield this.repository.find({
-                where: [
-                    { name: (0, typeorm_1.Like)(name) },
-                    { email: (0, typeorm_1.Like)(email) }
-                ]
-            });
-            return users;
+            return zone;
         });
     }
     listAll() {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = yield this.repository.find();
-            return user;
+            const zones = yield this.repository.find();
+            return zones;
         });
     }
-    update(user) {
+    update(zone) {
         return __awaiter(this, void 0, void 0, function* () {
-            const userExit = yield this.repository.save(user);
-            return userExit;
+            const zoneExit = yield this.repository.save(zone);
+            return zoneExit;
         });
     }
 }
-exports.UserRepository = UserRepository;
+exports.ZoneRepository = ZoneRepository;

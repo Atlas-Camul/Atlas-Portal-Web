@@ -5,12 +5,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 //e.g server.js
 const express_1 = __importDefault(require("express"));
+require("express-async-errors");
 const vite_express_1 = __importDefault(require("vite-express"));
 const routes_1 = require("./routes");
 const AppError_1 = require("./errors/AppError");
 require("./database/index");
+require("express-async-errors");
+const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
-//app.get("/message", (_, res) => res.send("Hello from express!"));
+app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 app.use(routes_1.routes);
 app.use((err, request, response, _) => {
@@ -20,7 +23,6 @@ app.use((err, request, response, _) => {
             message: err.message
         });
     }
-    console.log(err);
     return response.status(500).json({
         status: 'error',
         message: 'Internal server error'
