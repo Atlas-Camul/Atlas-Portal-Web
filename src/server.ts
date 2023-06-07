@@ -9,6 +9,7 @@ import 'express-async-errors';
 import cookieParser from 'cookie-parser';
 
 const app = express();
+ViteExpress.config({ mode: "production" });
 
 app.use(cookieParser());
 app.use(express.json());
