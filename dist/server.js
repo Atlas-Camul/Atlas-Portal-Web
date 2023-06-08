@@ -13,6 +13,7 @@ require("./database/index");
 require("express-async-errors");
 const cookie_parser_1 = __importDefault(require("cookie-parser"));
 const app = (0, express_1.default)();
+vite_express_1.default.config({ mode: "production" });
 app.use((0, cookie_parser_1.default)());
 app.use(express_1.default.json());
 app.use(routes_1.routes);

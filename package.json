@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
-    "build": "tsc",
+    "build": "vite build",
     "preview": "vite preview",
+    "start": "node ./dist/server.js",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "author": {
